@@ -6,11 +6,11 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/../..)
 include(RockHopperStandards)
 
 # Add a library compiled with RockHopper's standards.
-add_library(${PROJECT_NAME} blank.cc)
-target_rockhopper_standards(${PROJECT_NAME})
+add_library(TestCompileFlags blank.cc)
+target_rockhopper_standards(TestCompileFlags)
 
 # Check the libraries compile options match RockHopper's standards.
-get_target_property(_compile_options ${PROJECT_NAME} COMPILE_OPTIONS)
+get_target_property(_compile_options TestCompileFlags COMPILE_OPTIONS)
 #
 macro(require_compile_option __option)
   if(NOT "${_compile_options}" MATCHES ${__option})
@@ -32,6 +32,14 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR
 endif()
 
 # Check that the targeted recommended warnings option is defined and ON
-if(NOT TEST_ROCK_HOPPER_STANDARDS_ENABLE_ROCKHOPPER_STANDARD_WARNINGS STREQUAL ON)
+if(NOT TEST_COMPILE_FLAGS_ENABLE_ROCKHOPPER_STANDARD_WARNINGS STREQUAL ON)
+  message(FATAL_ERROR "Expected a targeted option to disable recommended compiler warnings.")
+endif()
+
+# Check the standards function supports custom cache names
+add_library(TestCacheNameCompileFlags blank.cc)
+target_rockhopper_standards(TestCacheNameCompileFlags CACHE_NAME "TWCNCF")
+#
+if(NOT TWCNCF_ENABLE_ROCKHOPPER_STANDARD_WARNINGS STREQUAL ON)
   message(FATAL_ERROR "Expected a targeted option to disable recommended compiler warnings.")
 endif()

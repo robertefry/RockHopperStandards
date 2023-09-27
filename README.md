@@ -3,6 +3,17 @@
 
 CMake scripts to enable high-performance and reliability in C++ codebases.
 
+The `target_rockhopper_standards` function is used to configure a CMake target by enabling the set of RockHopper Standards.
+
+```cmake
+target_rockhopper_standards(
+    # The name of the target you want compliant with RockHopper Standards.
+    <your_target>
+    # A (optional) custom name for target-specific cache options.
+    CACHE_NAME <your_target_name>
+)
+```
+
 ### Contents
 
 - [Features](#features)
@@ -17,7 +28,7 @@ CMake scripts to enable high-performance and reliability in C++ codebases.
 
 ## Getting Started
 
-To use RockHopper's Standards in your project, simply add the following to your `CMakeLists.txt`.
+To use RockHopper Standards in your project, simply add the following to your `CMakeLists.txt`.
 
 ```cmake
 include(FetchContent)
@@ -25,15 +36,15 @@ include(FetchContent)
 FetchContent_Declare(
     RockHopperStandards
     GIT_REPOSITORY https://github.com/robertefry/RockHopperStandards.git
-    GIT_TAG v1.0.0 )
+    GIT_TAG v1.1.0 )
 FetchContent_MakeAvailable(RockHopperStandards)
 
 target_rockhopper_standards(<your_target>)
 ```
 
 Alternatively, if you are using [CPM](https://github.com/cpm-cmake/CPM.cmake), add the following to your `CMakeLists.txt`
-```
-CPMAddPackage("gh:robertefry/RockHopperStandards@1.0.0")
+```cmake
+CPMAddPackage("gh:robertefry/RockHopperStandards@1.1.0")
 
 target_rockhopper_standards(<your_target>)
 ```

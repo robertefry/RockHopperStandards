@@ -2,16 +2,14 @@
 include(RockHopperUtils)
 
 
-function(_target_rockhopper_recomended_warnings __target)
-
-  _rockhopper_cache_name(${__target} _target_cache_name)
+function(_target_rockhopper_recomended_warnings __target __cache_name)
 
   option(
-    ${_target_cache_name}_ENABLE_ROCKHOPPER_STANDARD_WARNINGS
+    ${__cache_name}_ENABLE_ROCKHOPPER_STANDARD_WARNINGS
     "Enable the recommended set of compiler warnings."
     ON)
 
-  if(NOT ${${_target_cache_name}_ENABLE_ROCKHOPPER_STANDARD_WARNINGS})
+  if(NOT ${${__cache_name}_ENABLE_ROCKHOPPER_STANDARD_WARNINGS})
 
     message(NOTICE "Disabling the recommended set of compiler warnings is not recommended.")
 
@@ -41,8 +39,12 @@ endfunction()
 function(target_rockhopper_standards __target)
 
   _rockhopper_validate_target(${__target})
-  _rockhopper_parse_exact_args(ROCKHOPPER "" "" "")
+  _rockhopper_parse_exact_args(ARG "" "CACHE_NAME" "" ${ARGN})
 
-  _target_rockhopper_recomended_warnings(${__target})
+  if(NOT ARG_CACHE_NAME)
+    _rockhopper_cache_name(${__target} ARG_CACHE_NAME)
+  endif()
+
+  _target_rockhopper_recomended_warnings(${__target} ${ARG_CACHE_NAME})
 
 endfunction()
