@@ -12,7 +12,7 @@ CMake scripts to enable high-performance and reliability in C++ codebases.
 
 ## Features
 
-- **Compiler Warnings**:<p>
+- **[Compiler Warnings](#compiler-warnings)**:<p>
     The minimal set of compiler warnings for maximum safety.<p>
 
 ## Getting Started
