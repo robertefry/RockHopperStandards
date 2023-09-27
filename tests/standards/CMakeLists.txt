@@ -36,7 +36,7 @@ if(NOT TEST_COMPILE_FLAGS_ENABLE_ROCKHOPPER_STANDARD_WARNINGS STREQUAL ON)
   message(FATAL_ERROR "Expected the cache option for RockHopper Standards' compiler warnings.")
 endif()
 
-# Check the standards function supports custom cache names
+# Check target_rockhopper_standards supports custom cache names
 add_library(TestCacheNameCompileFlags blank.cc)
 target_rockhopper_standards(TestCacheNameCompileFlags CACHE_NAME "TWCNCF")
 #

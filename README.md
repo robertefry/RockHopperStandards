@@ -13,7 +13,7 @@ CMake scripts to enable high-performance and reliability in C++ codebases.
 
 </details>
 
-The `target_rockhopper_standards` function is used to configure a CMake target by enabling the set of RockHopper Standards.
+The `target_rockhopper_standards` function is used to configure a CMake target by enabling the set of standards from RockHopper Standards.
 
 ```cmake
 target_rockhopper_standards(
