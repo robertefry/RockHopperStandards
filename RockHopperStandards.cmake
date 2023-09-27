@@ -2,16 +2,16 @@
 include(RockHopperUtils)
 
 
-function(_target_rockhopper_recomended_warnings __target __cache_name)
+function(_target_rockhopper_warnings __target __cache_name)
 
   option(
     ${__cache_name}_ENABLE_ROCKHOPPER_STANDARD_WARNINGS
-    "Enable the recommended set of compiler warnings."
+    "Enable RockHopper Standards' set of compiler warnings."
     ON)
 
   if(NOT ${${__cache_name}_ENABLE_ROCKHOPPER_STANDARD_WARNINGS})
 
-    message(NOTICE "Disabling the recommended set of compiler warnings is not recommended.")
+    message(NOTICE "Disabling RockHopper Standards' set of compiler warnings is not recommended.")
 
   else()
 
@@ -28,7 +28,7 @@ function(_target_rockhopper_recomended_warnings __target __cache_name)
 
     else()
       message(NOTICE "Unsupported compiler ${CMAKE_CXX_COMPILER_ID}\
-        Cannot set the recommended set of compiler warnings.")
+        Cannot set RockHopper Standards' set of compiler warnings.")
     endif()
 
   endif()
@@ -45,6 +45,6 @@ function(target_rockhopper_standards __target)
     _rockhopper_cache_name(${__target} ARG_CACHE_NAME)
   endif()
 
-  _target_rockhopper_recomended_warnings(${__target} ${ARG_CACHE_NAME})
+  _target_rockhopper_warnings(${__target} ${ARG_CACHE_NAME})
 
 endfunction()
