@@ -3,6 +3,16 @@
 
 CMake scripts to enable high-performance and reliability in C++ codebases.
 
+<details>
+<summary>Table of Contents</summary>
+
+- [Features](#features)
+    - [Compiler Warnings](#compiler-warnings)
+- [Getting Started](#getting-started)
+- [In Development](#features-in-development)
+
+</details>
+
 The `target_rockhopper_standards` function is used to configure a CMake target by enabling the set of RockHopper Standards.
 
 ```cmake
@@ -13,13 +23,6 @@ target_rockhopper_standards(
     CACHE_NAME <your_target_name>
 )
 ```
-
-### Contents
-
-- [Features](#features)
-    - [Compiler Warnings](#compiler-warnings)
-- [Getting Started](#getting-started)
-- [In Development](#features-in-development)
 
 ## Features
 
@@ -67,6 +70,9 @@ target_rockhopper_standards(<your_target>)
 
 Using the following flags can improve code reliability and maintainability but may generate numerous warnings that require review and resolution. These flags help enhance code quality, and catch various issues such as errors, non-standard code, unwanted type conversions, variable shadowing, and encourage adherence to best practices.
 
+<details>
+<summary>GNU/Clang Warnigs</summary>
+
 - `-Werror` treats all warnings as errors, compelling the coder to address warnings during compilation, which promotes stricter code quality, consistency, early bug detection, and prevention of silent bugs.
 
 - `-Wall` and `-Wextra` enable a wide range of warning messages, helping you catch potential issues in your code.
@@ -78,6 +84,8 @@ Using the following flags can improve code reliability and maintainability but m
 - `-Wshadow` alerts you to variable shadowing, where a local variable hides another variable in an outer scope.
 
 - `-Weffc`++ enforces some guidelines from the “Effective C++” book by Scott Meyers, promoting best practices for C++ code.
+
+</details>
 
 You can use a provided cache option to control whether you want to enable or disable the Rockhopper standard compiler warnings. If your target is called `MyTarget_1`, the name of the cache option is:
 ```
