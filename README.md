@@ -26,8 +26,13 @@ target_rockhopper_standards(
 
 ## Features
 
-- **[Compiler Warnings](#compiler-warnings)**:<p>
-    The minimal set of compiler warnings for maximum safety.<p>
+- **[Language Extensions](#language-extensions)**
+
+    Language extensions are non-standard compiler-specific extra features; disabling them ensures consistent and strict coding.
+
+- **[Compiler Warnings](#compiler-warnings)**:
+
+    The minimal set of compiler flags to enforce rigorous, high-quality, error-free code.
 
 ## Getting Started
 
@@ -39,7 +44,7 @@ include(FetchContent)
 FetchContent_Declare(
     RockHopperStandards
     GIT_REPOSITORY https://github.com/robertefry/RockHopperStandards.git
-    GIT_TAG v1.1.0 )
+    GIT_TAG v1.x.x )
 FetchContent_MakeAvailable(RockHopperStandards)
 
 target_rockhopper_standards(<your_target>)
@@ -66,6 +71,20 @@ target_rockhopper_standards(<your_target>)
 
 ## More detail about the features.
 
+### Language Extensions
+
+Compiler extensions are added features beyond standard language rules, often tied to specific compilers. In stringent code bases, turning them off is essential because it promotes code consistency, enforces language standards, and reduces the risk of unexpected issues. This ensures code reliability, simplifies collaboration, and enhances portability.
+
+<details>
+<summary>Cache Options</summary>
+
+The developer can use the provided cache option to control language extensions.
+```
+${TARGET_CACHE_NAME}_ENABLE_${LANG}_EXTENSIONS
+```
+
+</details>
+
 ### Compiler Warnings
 
 Using the following flags can improve code reliability and maintainability but may generate numerous warnings that require review and resolution. These flags help enhance code quality, and catch various issues such as errors, non-standard code, unwanted type conversions, variable shadowing, and encourage adherence to best practices.
@@ -87,8 +106,13 @@ Using the following flags can improve code reliability and maintainability but m
 
 </details>
 
-You can use a provided cache option to control whether you want to enable or disable the Rockhopper standard compiler warnings. If your target is called `MyTarget_1`, the name of the cache option is:
+<details>
+<summary>Cache Options</summary>
+
+The developer can use the provided cache option to control Rockhopper Standards' compiler warnings per-target.
 ```
-MY_TARGET_1_ENABLE_ROCKHOPPER_STANDARD_WARNINGS
+${TARGET_CACHE_NAME}_ENABLE_ROCKHOPPER_STANDARD_WARNINGS
 ```
-If you set this option to `OFF`, it will generate an extra warning during the configuration process, advising against disabling the RockHopper standard warnings.
+Setting this option to `OFF` is not recommended, and will warn the developer during the configuration process.
+
+</details>
