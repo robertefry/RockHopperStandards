@@ -9,6 +9,22 @@ include(RockHopperStandards)
 add_library(TestCompileFlags blank.cc)
 target_rockhopper_standards(TestCompileFlags)
 
+# Check that language extensions are disabled
+foreach(LANG C CXX OBJC OBJCXX CUDA HIP)
+  get_target_property(EXTENSTION_ENABLED TestCompileFlags ${LANG}_EXTENSIONS)
+  if(EXTENSTION_ENABLED)
+    message(FATAL_ERROR "${LANG} extensions are enabled.")
+  endif()
+endforeach()
+
+# Check that the enable extensions options exist.
+get_property(_project_languages GLOBAL PROPERTY ENABLED_LANGUAGES)
+foreach(LANG ${_project_languages})
+  if(TEST_COMPILE_FLAGS_ENABLE_${LANG}_EXTENSIONS)
+    message(FATAL_ERROR "Expected ${LANG} language extensions to be off.")
+  endif()
+endforeach()
+
 # Check the libraries compile options match RockHopper's standards.
 get_target_property(_compile_options TestCompileFlags COMPILE_OPTIONS)
 #

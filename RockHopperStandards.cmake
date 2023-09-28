@@ -2,6 +2,28 @@
 include(RockHopperUtils)
 
 
+function(_target_rockhopper_extensions __target __cache_name)
+
+  get_property(_project_languages GLOBAL PROPERTY ENABLED_LANGUAGES)
+  foreach(LANG ${_project_languages})
+
+    option(
+      ${__cache_name}_ENABLE_${LANG}_EXTENSIONS
+      "Enable the use of ${LANG} compiler extensions. (Not recomended; may lead to warning clashes)"
+      OFF)
+
+    if(${__cache_name}_ENABLE_${LANG}_EXTENSIONS)
+      message(NOTICE "Enabling ${LANG} extensions is not recomended.")
+    endif()
+
+    target_compile_definitions(${__target} PUBLIC
+      ${LANG}_EXTENSIONS=${${__cache_name}_ENABLE_${LANG}_EXTENSIONS})
+
+  endforeach()
+
+endfunction()
+
+
 function(_target_rockhopper_warnings __target __cache_name)
 
   option(
@@ -45,6 +67,7 @@ function(target_rockhopper_standards __target)
     _rockhopper_cache_name(${__target} ARG_CACHE_NAME)
   endif()
 
+  _target_rockhopper_extensions(${__target} ${ARG_CACHE_NAME})
   _target_rockhopper_warnings(${__target} ${ARG_CACHE_NAME})
 
 endfunction()
