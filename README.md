@@ -73,7 +73,7 @@ target_rockhopper_standards(<the_target>)
 
 ### Language Extensions
 
-Compiler extensions are added features beyond standard language rules, often tied to specific compilers. In stringent code bases, turning them off is essential because it promotes code consistency, enforces language standards, and reduces the risk of unexpected issues. This ensures code reliability, simplifies collaboration, and enhances portability.
+Compiler extensions are added language features beyond standard rules, often tied to specific compilers. In stringent code bases, turning them off is essential because it promotes code consistency, enforces language standards, and reduces the risk of unexpected issues.
 
 <details>
 <summary>Cache Options</summary>
