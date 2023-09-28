@@ -7,6 +7,7 @@ CMake scripts to enable high-performance and reliability in C++ codebases.
 <summary>Table of Contents</summary>
 
 - [Features](#features)
+    - [Language Extensions](#language-extensions)
     - [Compiler Warnings](#compiler-warnings)
 - [Getting Started](#getting-started)
 - [In Development](#features-in-development)
