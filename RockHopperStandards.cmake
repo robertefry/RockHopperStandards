@@ -27,11 +27,11 @@ endfunction()
 function(_target_rockhopper_warnings __target __cache_name)
 
   option(
-    ${__cache_name}_ENABLE_ROCKHOPPER_STANDARD_WARNINGS
+    ${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_WARNINGS
     "Enable RockHopper Standards' set of compiler warnings."
     ON)
 
-  if(NOT ${${__cache_name}_ENABLE_ROCKHOPPER_STANDARD_WARNINGS})
+  if(NOT ${${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_WARNINGS})
 
     message(NOTICE "Disabling RockHopper Standards' set of compiler warnings is not recommended.")
 
