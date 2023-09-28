@@ -60,7 +60,6 @@ target_rockhopper_standards(<the_target>)
 
 ## Features In Development
 
-- Compiler extensions disabled.
 - Static analysis (Clang-Tidy and CppCheck)
 - Linker (ABI) safety and optimisation.
 - Sanitizer testing.
