@@ -17,10 +17,10 @@ The `target_rockhopper_standards` function is used to configure a CMake target b
 
 ```cmake
 target_rockhopper_standards(
-    # The name of the target you want compliant with RockHopper Standards.
-    <your_target>
+    # The name of the cmake target the developer wants compliant with RockHopper Standards.
+    <the_target>
     # A (optional) custom name for target-specific cache options.
-    CACHE_NAME <your_target_name>
+    CACHE_NAME <the_target_name>
 )
 ```
 
@@ -36,7 +36,7 @@ target_rockhopper_standards(
 
 ## Getting Started
 
-To use RockHopper Standards in your project, simply add the following to your `CMakeLists.txt`.
+To use RockHopper Standards in a project, simply add the following to the relevant `CMakeLists.txt`.
 
 ```cmake
 include(FetchContent)
@@ -47,14 +47,14 @@ FetchContent_Declare(
     GIT_TAG v1.x.x )
 FetchContent_MakeAvailable(RockHopperStandards)
 
-target_rockhopper_standards(<your_target>)
+target_rockhopper_standards(<the_target>)
 ```
 
-Alternatively, if you are using [CPM](https://github.com/cpm-cmake/CPM.cmake), add the following to your `CMakeLists.txt`
+Alternatively, if the build system is using [CPM](https://github.com/cpm-cmake/CPM.cmake), add the following to the relevant `CMakeLists.txt`
 ```cmake
 CPMAddPackage("gh:robertefry/RockHopperStandards@1.1.0")
 
-target_rockhopper_standards(<your_target>)
+target_rockhopper_standards(<the_target>)
 ```
 
 ## Features In Development
@@ -94,15 +94,15 @@ Using the following flags can improve code reliability and maintainability but m
 
 - `-Werror` treats all warnings as errors, compelling the coder to address warnings during compilation, which promotes stricter code quality, consistency, early bug detection, and prevention of silent bugs.
 
-- `-Wall` and `-Wextra` enable a wide range of warning messages, helping you catch potential issues in your code.
+- `-Wall` and `-Wextra` enable a wide range of warning messages, helping developers identify potential issues in their code early on.
 
-- `-Wpedantic` enforces strict adherence to the C++ language standard, flagging non-standard code constructs.
+- `-Wpedantic` enforces strict adherence to the language standard.
 
-- `-Wconversion` warns about implicit type conversions that might lead to data loss or unexpected behavior.
+- `-Wconversion` warns about implicit type conversions, which may lead to unexpected behaviour.
 
-- `-Wshadow` alerts you to variable shadowing, where a local variable hides another variable in an outer scope.
+- `-Wshadow` warns about variable shadowing, where a local variable hides another variable in an outer scope.
 
-- `-Weffc`++ enforces some guidelines from the “Effective C++” book by Scott Meyers, promoting best practices for C++ code.
+- `-Weffc++` enforces some guidelines from the “Effective C++” book by Scott Meyers, promoting best practices.
 
 </details>
 
