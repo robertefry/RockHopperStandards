@@ -48,7 +48,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR
 endif()
 
 # Check that RockHopper Standards' warnings option is defined and ON
-if(NOT TEST_COMPILE_FLAGS_ENABLE_ROCKHOPPER_STANDARD_WARNINGS)
+if(NOT TEST_COMPILE_FLAGS_ENABLE_ROCKHOPPER_STANDARDS_WARNINGS)
   message(FATAL_ERROR "Expected the cache option for RockHopper Standards' compiler warnings.")
 endif()
 
@@ -56,6 +56,6 @@ endif()
 add_library(TestCacheNameCompileFlags blank.cc)
 target_rockhopper_standards(TestCacheNameCompileFlags CACHE_NAME "TWCNCF")
 #
-if(NOT TWCNCF_ENABLE_ROCKHOPPER_STANDARD_WARNINGS)
+if(NOT TWCNCF_ENABLE_ROCKHOPPER_STANDARDS_WARNINGS)
   message(FATAL_ERROR "Expected the cache option for RockHopper Standards' compiler warnings.")
 endif()
