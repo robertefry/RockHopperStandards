@@ -94,9 +94,9 @@ Using the following flags can improve code reliability and maintainability but m
 <details>
 <summary>GNU/Clang Warnigs</summary>
 
-- `-Werror` treats all warnings as errors, compelling the coder to address warnings during compilation, which promotes stricter code quality, consistency, early bug detection, and prevention of silent bugs.
+- `-Werror` treats all warnings as errors.
 
-- `-Wall` and `-Wextra` enable a wide range of warning messages, helping developers identify potential issues in their code early on.
+- `-Wall` and `-Wextra` enable a wide range of warning messages.
 
 - `-Wpedantic` enforces strict adherence to the language standard.
 
@@ -104,7 +104,7 @@ Using the following flags can improve code reliability and maintainability but m
 
 - `-Wshadow` warns about variable shadowing, where a local variable hides another variable in an outer scope.
 
-- `-Weffc++` enforces some guidelines from the “Effective C++” book by Scott Meyers, promoting best practices.
+- `-Weffc++` enforces some guidelines from the “Effective C++” book by Scott Meyers.
 
 </details>
 
