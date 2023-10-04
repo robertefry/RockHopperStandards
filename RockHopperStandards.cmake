@@ -34,25 +34,24 @@ function(_target_rockhopper_warnings __target __cache_name)
   if(NOT ${${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_WARNINGS})
 
     message(NOTICE "Disabling RockHopper Standards' set of compiler warnings is not recommended.")
+    return()
+
+  endif()
+
+  if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR
+      CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+
+    target_compile_options(${__target} PUBLIC -Werror -Wall -Wextra)
+    target_compile_options(${__target} PUBLIC -Wpedantic -Wconversion -Wshadow -Weffc++)
+    target_compile_options(${__target} PUBLIC -Wno-unused)
+
+  elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+
+    target_compile_options(${__target} PUBLIC /WX /Wall)
 
   else()
-
-    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR
-        CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-
-      target_compile_options(${__target} PUBLIC -Werror -Wall -Wextra)
-      target_compile_options(${__target} PUBLIC -Wpedantic -Wconversion -Wshadow -Weffc++)
-      target_compile_options(${__target} PUBLIC -Wno-unused)
-
-    elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-
-      target_compile_options(${__target} PUBLIC /WX /Wall)
-
-    else()
-      message(NOTICE "Unsupported compiler ${CMAKE_CXX_COMPILER_ID}\
-        Cannot set RockHopper Standards' set of compiler warnings.")
-    endif()
-
+    message(NOTICE "Unsupported compiler ${CMAKE_CXX_COMPILER_ID}\
+      Cannot set RockHopper Standards' set of compiler warnings.")
   endif()
 
 endfunction()
@@ -60,8 +59,17 @@ endfunction()
 
 function(target_rockhopper_standards __target)
 
+  set(ARGS_OPTIONAL
+    )
+  set(ARGS_SINGLE
+    # (optional) A custom name for target-specific cache options.
+    "CACHE_NAME"
+    )
+  set(ARGS_MULTIPLE
+    )
+
   _rockhopper_validate_target(${__target})
-  _rockhopper_parse_exact_args(ARG "" "CACHE_NAME" "" ${ARGN})
+  _rockhopper_parse_exact_args(ARG "${ARGS_OPTIONAL}" "${ARGS_SINGLE}" "${ARGS_MULTIPLE}" ${ARGN})
 
   if(NOT ARG_CACHE_NAME)
     _rockhopper_cache_name(${__target} ARG_CACHE_NAME)

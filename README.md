@@ -20,7 +20,7 @@ The `target_rockhopper_standards` function is used to configure a CMake target b
 target_rockhopper_standards(
     # The name of the cmake target the developer wants compliant with RockHopper Standards.
     <the_target>
-    # A (optional) custom name for target-specific cache options.
+    # (optional) A custom name for target-specific cache options.
     CACHE_NAME <the_target_name>
 )
 ```
