@@ -58,9 +58,24 @@ function(_target_rockhopper_warnings
     endif()
 
     target_compile_options(${__target} PUBLIC -Wall -Wextra -Wpedantic)
-    target_compile_options(${__target} PUBLIC -Wconversion -Wshadow -Weffc++)
+    target_compile_options(${__target} PUBLIC -Wshadow)
+    target_compile_options(${__target} PUBLIC -Wnon-virtual-dtor)
+    target_compile_options(${__target} PUBLIC -Woverloaded-virtual)
+
+    if(NOT ${__cache_name}_ENABLE_PROTOTYPING_MODE)
+      target_compile_options(${__target} PUBLIC -Wunused)
+      target_compile_options(${__target} PUBLIC -Wconversion)
+      target_compile_options(${__target} PUBLIC -Wsign-conversion)
+      target_compile_options(${__target} PUBLIC -Wold-style-cast)
+      target_compile_options(${__target} PUBLIC -Wcast-align)
+      target_compile_options(${__target} PUBLIC -Wdouble-promotion)
+      target_compile_options(${__target} PUBLIC -Weffc++)
+      target_compile_options(${__target} PUBLIC -Wnull-dereference)
+    endif()
 
   elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+
+    message(NOTICE "The MSVC compiler is not fully supported by RockHopper Standards")
 
     if(${__cache_name}_ENABLE_ROCKHOPPER_STANDARD_WARNING_PROMOTION)
       target_compile_options(${__target} PUBLIC /WX)
@@ -79,6 +94,8 @@ endfunction()
 function(target_rockhopper_standards __target)
 
   set(ARGS_OPTIONAL
+    # (optional) Enable prototyping mode.
+    "PROTOTYPE"
     # (optional) Disable promoting compiler warnings to errors.
     "DISABLE_WARNING_PROMOTION"
     )
@@ -95,6 +112,11 @@ function(target_rockhopper_standards __target)
   if(NOT ARG_CACHE_NAME)
     _rockhopper_cache_name(${__target} ARG_CACHE_NAME)
   endif()
+
+  option(
+    ${__cache_name}_ENABLE_PROTOTYPING_MODE
+    "Enable prototyping mode."
+    ${ARG_PROTOTYPE})
 
   _target_rockhopper_extensions(
     ${__target}
