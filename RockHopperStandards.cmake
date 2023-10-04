@@ -2,7 +2,10 @@
 include(RockHopperUtils)
 
 
-function(_target_rockhopper_extensions __target __cache_name)
+function(_target_rockhopper_extensions
+  __target
+  __cache_name
+  )
 
   get_property(_project_languages GLOBAL PROPERTY ENABLED_LANGUAGES)
   foreach(LANG ${_project_languages})
@@ -24,7 +27,11 @@ function(_target_rockhopper_extensions __target __cache_name)
 endfunction()
 
 
-function(_target_rockhopper_warnings __target __cache_name)
+function(_target_rockhopper_warnings
+  __target
+  __cache_name
+  __disable_warning_promotion
+  )
 
   option(
     ${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_WARNINGS
@@ -38,16 +45,28 @@ function(_target_rockhopper_warnings __target __cache_name)
 
   endif()
 
+  option(
+    ${__cache_name}_ENABLE_ROCKHOPPER_STANDARD_WARNING_PROMOTION
+    "Disable promoting compiler warnings to errors."
+    $<NOT:${__disable_warning_promotion}>)
+
   if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR
       CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 
-    target_compile_options(${__target} PUBLIC -Werror -Wall -Wextra)
-    target_compile_options(${__target} PUBLIC -Wpedantic -Wconversion -Wshadow -Weffc++)
-    target_compile_options(${__target} PUBLIC -Wno-unused)
+    if(${__cache_name}_ENABLE_ROCKHOPPER_STANDARD_WARNING_PROMOTION)
+      target_compile_options(${__target} PUBLIC -Werror)
+    endif()
+
+    target_compile_options(${__target} PUBLIC -Wall -Wextra -Wpedantic)
+    target_compile_options(${__target} PUBLIC -Wconversion -Wshadow -Weffc++)
 
   elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 
-    target_compile_options(${__target} PUBLIC /WX /Wall)
+    if(${__cache_name}_ENABLE_ROCKHOPPER_STANDARD_WARNING_PROMOTION)
+      target_compile_options(${__target} PUBLIC /WX)
+    endif()
+
+    target_compile_options(${__target} PUBLIC /Wall)
 
   else()
     message(NOTICE "Unsupported compiler ${CMAKE_CXX_COMPILER_ID}\
@@ -60,6 +79,8 @@ endfunction()
 function(target_rockhopper_standards __target)
 
   set(ARGS_OPTIONAL
+    # (optional) Disable promoting compiler warnings to errors.
+    "DISABLE_WARNING_PROMOTION"
     )
   set(ARGS_SINGLE
     # (optional) A custom name for target-specific cache options.
@@ -75,7 +96,14 @@ function(target_rockhopper_standards __target)
     _rockhopper_cache_name(${__target} ARG_CACHE_NAME)
   endif()
 
-  _target_rockhopper_extensions(${__target} ${ARG_CACHE_NAME})
-  _target_rockhopper_warnings(${__target} ${ARG_CACHE_NAME})
+  _target_rockhopper_extensions(
+    ${__target}
+    ${ARG_CACHE_NAME}
+    )
+  _target_rockhopper_warnings(
+    ${__target}
+    ${ARG_CACHE_NAME}
+    ${ARG_DISABLE_WARNING_PROMOTION}
+    )
 
 endfunction()

@@ -22,6 +22,8 @@ target_rockhopper_standards(
     <the_target>
     # (optional) A custom name for target-specific cache options.
     CACHE_NAME <the_target_name>
+    # (optional) Disable promoting compiler warnings to errors.
+    DISABLE_WARNING_PROMOTION
 )
 ```
 
@@ -78,10 +80,10 @@ Compiler extensions are added language features beyond standard rules, often tie
 <details>
 <summary>Cache Options</summary>
 
-The developer can use the provided cache option to control language extensions.
-```
-${TARGET_CACHE_NAME}_ENABLE_${LANG}_EXTENSIONS
-```
+- To enable/disable language extensions.
+  ```
+  ${TARGET_CACHE_NAME}_ENABLE_${LANG}_EXTENSIONS
+  ```
 
 </details>
 
@@ -109,10 +111,15 @@ Using the following flags can improve code reliability and maintainability but m
 <details>
 <summary>Cache Options</summary>
 
-The developer can use the provided cache option to control Rockhopper Standards' compiler warnings per-target.
-```
-${TARGET_CACHE_NAME}_ENABLE_ROCKHOPPER_STANDARD_WARNINGS
-```
-Setting this option to `OFF` is not recommended, and will warn the developer during the configuration process.
+- To enable/disable Rockhopper Standards' compiler warnings per-target;
+  ```
+  ${TARGET_CACHE_NAME}_ENABLE_ROCKHOPPER_STANDARD_WARNINGS
+  ```
+  Setting this option to `OFF` is not recommended, and will warn the developer during the configuration process.
+
+- To enable/disable RockHopper Standards' promotion of compiler warnings to errors;
+  ```
+  ${TARGET_CACHE_NAME}_ENABLE_ROCKHOPPER_STANDARD_WARNING_PROMOTION
+  ```
 
 </details>
