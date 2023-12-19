@@ -9,4 +9,4 @@ function(make_test)
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${ARG_LISTDIR})
 endfunction()
 
-make_test(NAME RockHopperStandards LISTDIR standards FAIL)
+make_test(NAME RockHopperStandards_Compilers LISTDIR compilers)
