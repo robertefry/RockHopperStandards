@@ -66,12 +66,15 @@ CPMAddPackage("gh:robertefry/RockHopperStandards@1.x.x")
 target_rockhopper_standards(<the_target>)
 ```
 
+For further reference, see the included `example` project.
+
 ## Features In Development
 
 - Static analysis (CppCheck)
 - Linker (ABI) safety and optimisation.
 - Sanitizer testing.
 - Fuzz testing.
+- Unit tests run in both Release and Debug modes.
 - Automatic test targets and build commands.
 - Automatic documentation generation (Doxygen).
 - (?) Code formatting (Clang-Format)
