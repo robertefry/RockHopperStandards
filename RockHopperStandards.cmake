@@ -1,6 +1,7 @@
 
 include(RockHopperStandards_Utils)
 include(RockHopperStandards_Compilers)
+include(RockHopperStandards_Analysers)
 
 function(target_rockhopper_standards __target)
 
@@ -39,6 +40,11 @@ function(target_rockhopper_standards __target)
     ${__target}
     ${ARG_CACHE_NAME}
     ${ARG_DISABLE_WARNING_PROMOTION}
+    )
+
+  _target_rockhopper_analyser_clang_tidy(
+    ${__target}
+    ${ARG_CACHE_NAME}
     )
 
 endfunction()

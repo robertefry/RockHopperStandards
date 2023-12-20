@@ -31,13 +31,17 @@ target_rockhopper_standards(
 
 ## Features
 
-- **[Language Extensions](#language-extensions)**
+- **[Disabled Language Extensions](#language-extensions)**
 
     Language extensions are non-standard compiler-specific extra features; disabling them ensures consistent and strict coding.
 
-- **[Compiler Warnings](#compiler-warnings)**:
+- **[Enhanced Compiler Warnings](#compiler-warnings)**:
 
     The minimal set of compiler flags to enforce rigorous, high-quality, error-free code.
+
+- **[Static Analysis](#static-analysis)**:
+
+    Examine code for potential errors, vulnerabilities, and adherence to coding standards without compiling.
 
 ## Getting Started
 
@@ -57,14 +61,14 @@ target_rockhopper_standards(<the_target>)
 
 Alternatively, if the build system is using [CPM](https://github.com/cpm-cmake/CPM.cmake), add the following to the relevant `CMakeLists.txt`
 ```cmake
-CPMAddPackage("gh:robertefry/RockHopperStandards@1.1.0")
+CPMAddPackage("gh:robertefry/RockHopperStandards@1.x.x")
 
 target_rockhopper_standards(<the_target>)
 ```
 
 ## Features In Development
 
-- Static analysis (Clang-Tidy and CppCheck)
+- Static analysis (CppCheck)
 - Linker (ABI) safety and optimisation.
 - Sanitizer testing.
 - Fuzz testing.
@@ -94,7 +98,7 @@ Compiler extensions are added language features beyond standard rules, often tie
 Using the following flags can improve code reliability and maintainability but may generate numerous warnings that require review and resolution. These flags help enhance code quality, and catch various issues such as errors, non-standard code, unwanted type conversions, variable shadowing, and encourage adherence to best practices.
 
 <details>
-<summary>GNU/Clang Warnigs</summary>
+<summary>GNU/Clang Warnings</summary>
 
 - `-Werror` treats all warnings as errors.
 
@@ -123,5 +127,47 @@ Using the following flags can improve code reliability and maintainability but m
   ```
   ${TARGET_CACHE_NAME}_ENABLE_ROCKHOPPER_STANDARD_WARNING_PROMOTION
   ```
+
+</details>
+
+### Static Analysis
+
+Using the following static analysis checks improve enforcement of good coding standards, code quality, and early-identification of potential issues, with a focus on performance, security, quality, and readability.
+
+<details>
+<summary>Clang-Tidy Checks</summary>
+
+#### Improvements to performance.
+
+```
+  concurrency-*,
+  performance-*,
+  portability-*,
+
+```
+
+#### Improvements to security and safety.
+
+```
+  bugprone-*,
+  cert-*,
+```
+
+#### Improvements to quality.
+
+```
+  cppcoreguidelines-*,
+  hicpp-*,
+  modernize-*,
+  misc-*,
+```
+
+#### Improvements to readability.
+
+```
+  readability-*,
+  clang-analyzer-*,
+  llvm-namespace-comment,
+```
 
 </details>

@@ -10,3 +10,4 @@ function(make_test)
 endfunction()
 
 make_test(NAME RockHopperStandards_Compilers LISTDIR compilers)
+make_test(NAME RockHopperStandards_Analysers LISTDIR analysers)
