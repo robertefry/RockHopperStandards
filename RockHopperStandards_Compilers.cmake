@@ -86,3 +86,30 @@ function(_target_rockhopper_compiler_warnings
   endif()
 
 endfunction()
+
+
+function(_target_rockhopper_compiler_optimisations
+  __target
+  __cache_name)
+
+  option(
+    ${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_LTO
+    "Enable inter-process link time optimisations."
+    ON)
+
+  if(${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_LTO
+    AND NOT CMAKE_BUILD_TYPE MATCHES "Debug"
+  )
+
+    include(CheckIPOSupported)
+    check_ipo_supported(RESULT _lto_supported OUTPUT _lto_error)
+
+    if(_lto_supported)
+      set_property(TARGET ${__target} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+    else()
+      message(NOTICE "Cannot enable inter-process link-time optimisiations.")
+    endif()
+
+  endif()
+
+endfunction()

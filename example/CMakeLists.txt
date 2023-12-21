@@ -10,7 +10,7 @@ project("RockHopper Standards Example" VERSION "1.0.0" LANGUAGES "CXX"
 include(.cmake/get_cpm.cmake)
 
 # ---- the only target ----
-CPMAddPackage("gh:robertefry/RockHopperStandards@1.2.1a")
+CPMAddPackage("gh:robertefry/RockHopperStandards@1.3.1")
 
 set(BINARY_NAME "RockHopperStandardsExample")
 add_executable(${BINARY_NAME} "")

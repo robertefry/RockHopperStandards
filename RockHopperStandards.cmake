@@ -41,6 +41,10 @@ function(target_rockhopper_standards __target)
     ${ARG_CACHE_NAME}
     ${ARG_DISABLE_WARNING_PROMOTION}
     )
+  _target_rockhopper_compiler_optimisations(
+    ${__target}
+    ${ARG_CACHE_NAME}
+    )
 
   _target_rockhopper_analyser_clang_tidy(
     ${__target}

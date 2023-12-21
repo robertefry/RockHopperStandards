@@ -6,10 +6,12 @@ CMake scripts to enable high-performance and reliability in C++ codebases.
 <details>
 <summary>Table of Contents</summary>
 
+- [Getting Started](#getting-started)
 - [Features](#features)
     - [Language Extensions](#language-extensions)
     - [Compiler Warnings](#compiler-warnings)
-- [Getting Started](#getting-started)
+    - [Static Analysis](#static-analysis)
+    - [Link-Time Optimisations](#link-time-optimisations)
 - [In Development](#features-in-development)
 
 </details>
@@ -18,7 +20,7 @@ The `target_rockhopper_standards` function is used to configure a CMake target b
 
 ```cmake
 target_rockhopper_standards(
-    # The name of the cmake target the developer wants compliant with RockHopper Standards.
+    # The name of the cmake target to be compliant with RockHopper Standards.
     <the_target>
     # (optional) Enable prototyping mode.
     PROTOTYPE
@@ -28,20 +30,6 @@ target_rockhopper_standards(
     DISABLE_WARNING_PROMOTION
 )
 ```
-
-## Features
-
-- **[Disabled Language Extensions](#language-extensions)**
-
-    Language extensions are non-standard compiler-specific extra features; disabling them ensures consistent and strict coding.
-
-- **[Enhanced Compiler Warnings](#compiler-warnings)**:
-
-    The minimal set of compiler flags to enforce rigorous, high-quality, error-free code.
-
-- **[Static Analysis](#static-analysis)**:
-
-    Examine code for potential errors, vulnerabilities, and adherence to coding standards without compiling.
 
 ## Getting Started
 
@@ -68,10 +56,28 @@ target_rockhopper_standards(<the_target>)
 
 For further reference, see the included `example` project.
 
+## Features
+
+- **[Disabled Language Extensions](#language-extensions)**
+
+    Language extensions are non-standard compiler-specific extra features; disabling them ensures consistent and strict coding.
+
+- **[Enhanced Compiler Warnings](#compiler-warnings)**:
+
+    The minimal set of compiler flags to enforce rigorous, high-quality, error-free code.
+
+- **[Static Analysis](#static-analysis)**:
+
+    Examine code for potential errors, vulnerabilities, and adherence to coding standards without compiling.
+
+- **[Link-Time Optimisations](#link-time-optimisations)**:
+
+    Perform program-wide optimization during the linking phase.
+
 ## Features In Development
 
 - Static analysis (CppCheck)
-- Linker (ABI) safety and optimisation.
+- Linker (ABI) symbol generation.
 - Sanitizer testing.
 - Fuzz testing.
 - Unit tests run in both Release and Debug modes.
@@ -172,5 +178,30 @@ Using the following static analysis checks improve enforcement of good coding st
   clang-analyzer-*,
   llvm-namespace-comment,
 ```
+
+</details>
+
+<details>
+<summary>Cache Options</summary>
+
+- To enable/disable clang-tidy analysis.
+    ```
+    ${__cache_name}_ENABLE_CLANG_TIDY
+    ```
+
+</details>
+
+
+### Link-Time Optimisations
+
+Link-Time optimisation is a compiler optimization technique that enhances program performance and potentially reduces code size by optimizing the compiled machine code across different compilation units during the linking phase. This feature is disabled during Debug builds because the additional optimisations may interfere with debug symbols.
+
+<details>
+<summary>Cache Options</summary>
+
+- To enable/disable link-time optimisations.
+    ```
+    ${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_LTO
+    ```
 
 </details>
