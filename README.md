@@ -7,10 +7,12 @@ CMake scripts to enable high-performance and reliability in C++ codebases.
 <summary>Table of Contents</summary>
 
 - [Getting Started](#getting-started)
-- [Features](#features)
-    - [Language Extensions](#language-extensions)
+- [Compiler Features](#compiler-features)
     - [Compiler Warnings](#compiler-warnings)
     - [Static Analysis](#static-analysis)
+    - [Language Extensions Disabled](#language-extensions)
+- [Linker Features](#linker-features)
+    - [Symbol Export Control](#symbol-export-control)
     - [Link-Time Optimisations](#link-time-optimisations)
 - [In Development](#features-in-development)
 
@@ -28,6 +30,10 @@ target_rockhopper_standards(
     CACHE_NAME <the_target_name>
     # (optional) Disable promoting compiler warnings to errors.
     DISABLE_WARNING_PROMOTION
+    # (optional) The source-relative path to generate a symbol export header file.
+    EXPORT_HEADER_SOURCE "some/source/relative/path"
+    # (optional) The binary-relative path to generate a symbol export header file.
+    EXPORT_HEADER_BINARY "some/binary/relative/path"
 )
 ```
 
@@ -58,9 +64,7 @@ For further reference, see the included `example` project.
 
 ## Features
 
-- **[Disabled Language Extensions](#language-extensions)**
-
-    Language extensions are non-standard compiler-specific extra features; disabling them ensures consistent and strict coding.
+#### Compiler Features
 
 - **[Enhanced Compiler Warnings](#compiler-warnings)**:
 
@@ -70,37 +74,33 @@ For further reference, see the included `example` project.
 
     Examine code for potential errors, vulnerabilities, and adherence to coding standards without compiling.
 
+- **[Language Extensions Disabled](#language-extensions)**
+
+    Language extensions are non-standard compiler-specific extra features; disabling them ensures consistent and strict coding.
+
+#### Linker Features
+
+- **[Symbol Export Control](#linker-symbol-export-control)**:
+
+    Control symbol visibility and export behaviour.
+
 - **[Link-Time Optimisations](#link-time-optimisations)**:
 
     Perform program-wide optimization during the linking phase.
 
-## Features In Development
+## Planned Features In Development
 
-- Static analysis (CppCheck)
-- Linker (ABI) symbol generation.
-- Sanitizer testing.
-- Fuzz testing.
-- Unit tests run in both Release and Debug modes.
-- Automatic test targets and build commands.
-- Automatic documentation generation (Doxygen).
-- (?) Code formatting (Clang-Format)
-- (?) Code Generation (where necessary).
+- Code Quality
+    - CppCheck (yes, as well as Clang-Tidy).
+    - Documentation generation (Doxygen).
+    - (?) Code formatting (Clang-Format).
+- Testing
+    - Sanitized testing.
+    - Unit tests run in Release and Debug modes.
+    - Fuzz testing.
+    - Automatic test targets and run commands.
 
-## More detail about the features.
-
-### Language Extensions
-
-Compiler extensions are added language features beyond standard rules, often tied to specific compilers. In stringent code bases, turning them off is essential because it promotes code consistency, enforces language standards, and reduces the risk of unexpected issues.
-
-<details>
-<summary>Cache Options</summary>
-
-- To enable/disable language extensions.
-  ```
-  ${TARGET_CACHE_NAME}_ENABLE_${LANG}_EXTENSIONS
-  ```
-
-</details>
+## Features In Detail
 
 ### Compiler Warnings
 
@@ -191,6 +191,23 @@ Using the following static analysis checks improve enforcement of good coding st
 
 </details>
 
+### Language Extensions
+
+Compiler extensions are added language features beyond standard rules, often tied to specific compilers. In stringent code bases, turning them off is essential because it promotes code consistency, enforces language standards, and reduces the risk of unexpected issues.
+
+<details>
+<summary>Cache Options</summary>
+
+- To enable/disable language extensions.
+  ```
+  ${TARGET_CACHE_NAME}_ENABLE_${LANG}_EXTENSIONS
+  ```
+
+</details>
+
+### Linker Symbol Export Control
+
+Control the symbol export configuration, defaulting to where symbols are not exported unless explicitly specified in the code. Though not recommended, it offers the option (as a cache variable) to enable export of all symbols. Optionally, a symbol export header can be automatically generated at compile-time, which defines the recommended set of symbol export macros.
 
 ### Link-Time Optimisations
 

@@ -61,3 +61,12 @@ function(_rockhopper_cache_name __in __out_name)
 
 endfunction()
 
+
+function(_rockhopper_directory_from_filepath __in __out_name)
+
+  string(REGEX MATCH "(.*/)" _directory ${__in})
+  set(${__out_name} ${_directory})
+
+  return(PROPAGATE ${__out_name})
+
+endfunction()

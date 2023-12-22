@@ -43,14 +43,14 @@ function(_target_rockhopper_compiler_warnings
   endif()
 
   option(
-    ${__cache_name}_ENABLE_ROCKHOPPER_STANDARD_WARNING_PROMOTION
+    ${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_WARNING_PROMOTION
     "Disable promoting compiler warnings to errors."
     $<NOT:${__disable_warning_promotion}>)
 
   if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR
       CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 
-    if(${__cache_name}_ENABLE_ROCKHOPPER_STANDARD_WARNING_PROMOTION)
+    if(${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_WARNING_PROMOTION)
       target_compile_options(${__target} PUBLIC -Werror)
     endif()
 
@@ -74,7 +74,7 @@ function(_target_rockhopper_compiler_warnings
 
     message(NOTICE "The MSVC compiler is partially supported by RockHopper Standards")
 
-    if(${__cache_name}_ENABLE_ROCKHOPPER_STANDARD_WARNING_PROMOTION)
+    if(${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_WARNING_PROMOTION)
       target_compile_options(${__target} PUBLIC /WX)
     endif()
 
@@ -109,6 +109,64 @@ function(_target_rockhopper_compiler_optimisations
     else()
       message(NOTICE "Cannot enable inter-process link-time optimisiations.")
     endif()
+
+  endif()
+
+endfunction()
+
+
+function(_target_rockhopper_compiler_symbol_export
+  __target
+  __cache_name
+  __export_header_source
+  __export_header_binary)
+
+  option(
+    ${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_ALL_SYMBOL_EXPORT
+    "Enable the linker export of all library symbols."
+    OFF)
+
+  if(${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_SYMBOL_EXPORT)
+    set_target_properties(${__target} PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+  else()
+    set_target_properties(${__target} PROPERTIES CXX_VISIBILITY_PRESET "hidden")
+    set_target_properties(${__target} PROPERTIES VISIBILITY_INLINES_HIDDEN ON)
+  endif()
+
+  set(${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_HEADER_SOURCE_PATH
+    ${__export_header_source}
+    CACHE STRING "The source-relative filepath to generate a symbol export header file.")
+
+  set(${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_HEADER_BINARY_PATH
+    ${__export_header_binary}
+    CACHE STRING "The binary-relative filepath to generate a symbol export header file.")
+
+  set(__export_header_source ${${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_HEADER_SOURCE_PATH})
+  if(NOT _export_header_path)
+    set(_export_header_path ${__export_header_source})
+  endif()
+
+  set(__export_header_binary ${${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_HEADER_BINARY_PATH})
+  if(NOT _export_header_path)
+    set(_export_header_path ${__export_header_binary})
+  endif()
+
+  if(${__export_header_source} and ${__export_header_binary})
+    message(FATAL_ERROR "EXPORT_HEADER_SOURCE and EXPORT_HEADER_BINARY cannot be used together.")
+  endif()
+
+  if(_export_header_path)
+
+    include(GenerateExportHeader)
+    generate_export_header(${__target} EXPORT_FILE_NAME ${_export_header_path})
+
+    _rockhopper_directory_from_filepath(${__export_header_source} _export_header_source_directory)
+    _rockhopper_directory_from_filepath(${__export_header_binary} _export_header_binary_directory)
+
+    target_include_directories(${__target} SYSTEM PUBLIC
+      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${_export_header_source_directory}>
+      $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/${_export_header_binary_directory}>
+      $<INSTALL_INTERFACE:generated>)
 
   endif()
 
