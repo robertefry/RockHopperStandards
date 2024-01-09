@@ -43,7 +43,7 @@ function(target_rockhopper_standards __target)
   _target_rockhopper_compiler_warnings(
     ${__target}
     ${ARG_CACHE_NAME}
-    ${ARG_DISABLE_WARNING_PROMOTION}
+    "${ARG_DISABLE_WARNING_PROMOTION}"
     )
   _target_rockhopper_compiler_optimisations(
     ${__target}
@@ -52,8 +52,8 @@ function(target_rockhopper_standards __target)
   _target_rockhopper_compiler_symbol_export(
     ${__target}
     ${ARG_CACHE_NAME}
-    ${ARG_EXPORT_HEADER_SOURCE}
-    ${ARG_EXPORT_HEADER_BINARY}
+    "${ARG_EXPORT_HEADER_SOURCE}"
+    "${ARG_EXPORT_HEADER_BINARY}"
     )
   _target_rockhopper_analyser_clang_tidy(
     ${__target}
