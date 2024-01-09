@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.25)
 
 macro(_rockhopper_validate_target __target)
 
