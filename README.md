@@ -30,6 +30,8 @@ target_rockhopper_standards(
     CACHE_NAME <the_target_name>
     # (optional) Disable promoting compiler warnings to errors.
     DISABLE_WARNING_PROMOTION
+    # (optional) Enable export of all symbols for library targets.
+    ENABLE_ALL_SYMBOL_EXPORT
     # (optional) The source-relative path to generate a symbol export header file.
     EXPORT_HEADER_SOURCE "some/source/relative/path"
     # (optional) The binary-relative path to generate a symbol export header file.

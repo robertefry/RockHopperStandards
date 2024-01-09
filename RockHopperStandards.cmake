@@ -2,6 +2,7 @@
 include(RockHopperStandards_Utils)
 include(RockHopperStandards_Compilers)
 include(RockHopperStandards_Analysers)
+include(RockHopperStandards_Generation)
 
 function(target_rockhopper_standards __target)
 
@@ -12,6 +13,8 @@ function(target_rockhopper_standards __target)
     "PROTOTYPE"
     # (optional) Disable promoting compiler warnings to errors.
     "DISABLE_WARNING_PROMOTION"
+    # (optional) Enable all-symbol export for library targets.
+    "ENABLE_ALL_SYMBOL_EXPORT"
     )
   set(ARGS_SINGLE
     # (optional) A custom name for target-specific cache options.
@@ -50,6 +53,11 @@ function(target_rockhopper_standards __target)
     ${ARG_CACHE_NAME}
     )
   _target_rockhopper_compiler_symbol_export(
+    ${__target}
+    ${ARG_CACHE_NAME}
+    "${ARG_EXABLE_ALL_SYMBOL_EXPORT}"
+    )
+  _target_rockhopper_generate_export_header(
     ${__target}
     ${ARG_CACHE_NAME}
     "${ARG_EXPORT_HEADER_SOURCE}"

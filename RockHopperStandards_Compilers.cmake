@@ -118,55 +118,34 @@ endfunction()
 function(_target_rockhopper_compiler_symbol_export
   __target
   __cache_name
-  __export_header_source
-  __export_header_binary)
+  __all_symbol_export)
+
+  get_target_property(_target_type ${__target} TYPE)
+  if(NOT _target_type MATCHES ".*_LIBRARY")
+
+    if(__all_symbol_export)
+      message(FATAL_ERROR "Cannot enable all symbol export for non-library targets.")
+    endif()
+
+    return()
+
+  endif()
 
   option(
     ${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_ALL_SYMBOL_EXPORT
     "Enable the linker export of all library symbols."
-    OFF)
+    ${__all_symbol_export})
 
-  if(${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_SYMBOL_EXPORT)
+  if(${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_ALL_SYMBOL_EXPORT)
+
+    message(NOTICE "Enabling all symbol export is not recommended.")
+
     set_target_properties(${__target} PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+
   else()
+
     set_target_properties(${__target} PROPERTIES CXX_VISIBILITY_PRESET "hidden")
     set_target_properties(${__target} PROPERTIES VISIBILITY_INLINES_HIDDEN ON)
-  endif()
-
-  set(${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_HEADER_SOURCE_PATH
-    ${__export_header_source}
-    CACHE STRING "The source-relative filepath to generate a symbol export header file.")
-
-  set(${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_HEADER_BINARY_PATH
-    ${__export_header_binary}
-    CACHE STRING "The binary-relative filepath to generate a symbol export header file.")
-
-  set(__export_header_source ${${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_HEADER_SOURCE_PATH})
-  if(NOT _export_header_path)
-    set(_export_header_path ${__export_header_source})
-  endif()
-
-  set(__export_header_binary ${${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_HEADER_BINARY_PATH})
-  if(NOT _export_header_path)
-    set(_export_header_path ${__export_header_binary})
-  endif()
-
-  if(${__export_header_source} and ${__export_header_binary})
-    message(FATAL_ERROR "EXPORT_HEADER_SOURCE and EXPORT_HEADER_BINARY cannot be used together.")
-  endif()
-
-  if(_export_header_path)
-
-    include(GenerateExportHeader)
-    generate_export_header(${__target} EXPORT_FILE_NAME ${_export_header_path})
-
-    _rockhopper_directory_from_filepath(${__export_header_source} _export_header_source_directory)
-    _rockhopper_directory_from_filepath(${__export_header_binary} _export_header_binary_directory)
-
-    target_include_directories(${__target} SYSTEM PUBLIC
-      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${_export_header_source_directory}>
-      $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/${_export_header_binary_directory}>
-      $<INSTALL_INTERFACE:generated>)
 
   endif()
 
