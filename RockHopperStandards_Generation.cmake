@@ -57,7 +57,7 @@ function(_target_rockhopper_generate_export_header
 
   if(${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_HEADER_BINARY_PATH)
 
-  message(STATUS "Generating export header for ${__target}: ${CMAKE_CURRENT_BINARY_DIR}/${__export_header_binary}")
+    message(STATUS "Generating export header for ${__target}: ${CMAKE_CURRENT_BINARY_DIR}/${__export_header_binary}")
 
     include(GenerateExportHeader)
     generate_export_header(${__target}
