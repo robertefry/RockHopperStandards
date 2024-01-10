@@ -1,8 +1,9 @@
 
 include(RockHopperStandards_Utils)
-include(RockHopperStandards_Compilers)
 include(RockHopperStandards_Analysers)
 include(RockHopperStandards_Generation)
+include(RockHopperStandards_Compilers)
+include(RockHopperStandards_Linkers)
 
 function(target_rockhopper_standards __target)
 
@@ -50,11 +51,11 @@ function(target_rockhopper_standards __target)
     ${ARG_CACHE_NAME}
     "${ARG_DISABLE_WARNING_PROMOTION}"
     )
-  _target_rockhopper_compiler_optimisations(
+  _target_rockhopper_linker_optimisations(
     ${__target}
     ${ARG_CACHE_NAME}
     )
-  _target_rockhopper_compiler_symbol_export(
+  _target_rockhopper_linker_symbol_export(
     ${__target}
     ${ARG_CACHE_NAME}
     "${ARG_EXABLE_ALL_SYMBOL_EXPORT}"
