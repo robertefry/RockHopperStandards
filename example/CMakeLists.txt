@@ -18,7 +18,7 @@ include(RockHopperStandards)
 
 # ---- the library ----
 set(BINARY_NAME "RockHopperStandardsExampleLibrary")
-add_library(${BINARY_NAME} STATIC "")
+add_library(${BINARY_NAME} SHARED "")
 
 target_rockhopper_standards(${BINARY_NAME}
   CACHE_NAME "EXAMPLE_LIBRARY"

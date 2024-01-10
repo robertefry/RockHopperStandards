@@ -1,7 +1,9 @@
 
 #include <iostream>
 
+#include "library.hh"
+
 int main()
 {
-    std::cout << "Hello, World!" << "\n";
+    std::cout << GetHelloWorld() << "\n";
 }
