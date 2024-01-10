@@ -21,6 +21,7 @@ set(BINARY_NAME "RockHopperStandardsExampleLibrary")
 add_library(${BINARY_NAME} STATIC "")
 
 target_rockhopper_standards(${BINARY_NAME}
+  CACHE_NAME "EXAMPLE_LIBRARY"
   EXPORT_HEADER_SOURCE "gen/export.h")
 
 target_include_directories(${BINARY_NAME}
@@ -33,10 +34,11 @@ target_include_directories(${BINARY_NAME}
 target_sources(${BINARY_NAME} PRIVATE src/library.cc)
 
 # ---- the executable ----
-set(BINARY_NAME "RockHopperStandardsExample")
+set(BINARY_NAME "RockHopperStandardsExampleBinary")
 add_executable(${BINARY_NAME} "")
 
-target_rockhopper_standards(${BINARY_NAME})
+target_rockhopper_standards(${BINARY_NAME}
+  CACHE_NAME "EXAMPLE_BINARY")
 
 target_link_libraries(${BINARY_NAME} PRIVATE RockHopperStandardsExampleLibrary)
 

@@ -21,6 +21,10 @@ function(_target_rockhopper_generate_export_header
     message(FATAL_ERROR "EXPORT_HEADER_SOURCE and EXPORT_HEADER_BINARY cannot be used together.")
   endif()
 
+  if(NOT __export_basename)
+    set(__export_basename ${__cache_name})
+  endif()
+
   set(${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_BASENAME
     ${__export_basename}
     CACHE STRING "The basename for generated export macros.")
