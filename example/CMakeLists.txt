@@ -7,14 +7,38 @@ project("RockHopper Standards Example" VERSION "1.0.0" LANGUAGES "CXX"
   DESCRIPTION "An example usage of RockHopper Standards.")
 
 # ---- dependency management via cpm ----
-include(.cmake/get_cpm.cmake)
+# include(.cmake/get_cpm.cmake)
 
-# ---- the only target ----
-CPMAddPackage("gh:robertefry/RockHopperStandards@1.3.1")
+# FIXME: TO GET THE EXAMPLE WORKING OUTSIDE OF THIS PROJECT, UNCOMMENT THIS!
+# CPMAddPackage("gh:robertefry/RockHopperStandards@1.x.x")
 
+# FIXME: TO GET THE EXAMPLE WORKING OUTSIDE OF THIS PROJECT, DELETE THESE TWO LINES!
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/..)
+include(RockHopperStandards)
+
+# ---- the library ----
+set(BINARY_NAME "RockHopperStandardsExampleLibrary")
+add_library(${BINARY_NAME} STATIC "")
+
+target_rockhopper_standards(${BINARY_NAME}
+  EXPORT_HEADER_SOURCE "gen/export.h")
+
+target_include_directories(${BINARY_NAME}
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+target_sources(${BINARY_NAME} PRIVATE src/library.cc)
+
+# ---- the executable ----
 set(BINARY_NAME "RockHopperStandardsExample")
 add_executable(${BINARY_NAME} "")
+
 target_rockhopper_standards(${BINARY_NAME})
+
+target_link_libraries(${BINARY_NAME} PRIVATE RockHopperStandardsExampleLibrary)
 
 add_custom_target(run-${BINARY_NAME}
   COMMAND $<TARGET_FILE:${BINARY_NAME}>
@@ -27,6 +51,4 @@ target_include_directories(${BINARY_NAME}
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-file(GLOB_RECURSE BINARY_SOURCES
-  "src/*.c" "src/*.cc" "src/*.cpp" "src/*.cxx")
-target_sources(${BINARY_NAME} PRIVATE ${BINARY_SOURCES})
+target_sources(${BINARY_NAME} PRIVATE src/main.cc)
