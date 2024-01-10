@@ -2,6 +2,7 @@
 function(_target_rockhopper_generate_export_header
   __target
   __cache_name
+  __export_basename
   __export_header_source
   __export_header_binary)
 
@@ -20,6 +21,10 @@ function(_target_rockhopper_generate_export_header
     message(FATAL_ERROR "EXPORT_HEADER_SOURCE and EXPORT_HEADER_BINARY cannot be used together.")
   endif()
 
+  set(${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_BASENAME
+    ${__export_basename}
+    CACHE STRING "The basename for generated export macros.")
+
   set(${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_HEADER_SOURCE_PATH
     ${__export_header_source}
     CACHE STRING "The source-relative filepath to generate a symbol export header file.")
@@ -34,7 +39,7 @@ function(_target_rockhopper_generate_export_header
 
     include(GenerateExportHeader)
     generate_export_header(${__target}
-      BASE_NAME ${__cache_name}
+      BASE_NAME ${${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_BASENAME}
       EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/${__export_header_source})
 
     _rockhopper_directory_from_filepath(${__export_header_source} _export_header_source_directory)
@@ -52,7 +57,7 @@ function(_target_rockhopper_generate_export_header
 
     include(GenerateExportHeader)
     generate_export_header(${__target}
-      BASE_NAME ${__cache_name}
+      BASE_NAME ${${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_BASENAME}
       EXPORT_FILE_NAME ${CMAKE_CURRENT_BINARY_DIR}/${__export_header_binary})
 
     _rockhopper_directory_from_filepath(${__export_header_binary} _export_header_binary_directory)

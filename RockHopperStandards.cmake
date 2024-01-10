@@ -19,6 +19,8 @@ function(target_rockhopper_standards __target)
   set(ARGS_SINGLE
     # (optional) A custom name for target-specific cache options.
     "CACHE_NAME"
+    # (optional) The export macro basename.
+    "EXPORT_BASENAME"
     # (optional) The source-relative path to generate a symbol export header file.
     "EXPORT_HEADER_SOURCE"
     # (optional) The binary-relative path to generate a symbol export header file.
@@ -60,6 +62,7 @@ function(target_rockhopper_standards __target)
   _target_rockhopper_generate_export_header(
     ${__target}
     ${ARG_CACHE_NAME}
+    "${ARG_EXPORT_BASENAME}"
     "${ARG_EXPORT_HEADER_SOURCE}"
     "${ARG_EXPORT_HEADER_BINARY}"
     )
