@@ -7,7 +7,7 @@ project("RockHopper Standards Example" VERSION "1.0.0" LANGUAGES "CXX"
   DESCRIPTION "An example usage of RockHopper Standards.")
 
 # ---- dependency management via cpm ----
-# include(.cmake/get_cpm.cmake)
+include(.cmake/get_cpm.cmake)
 
 # FIXME: TO GET THE EXAMPLE WORKING OUTSIDE OF THIS PROJECT, UNCOMMENT THIS!
 # CPMAddPackage("gh:robertefry/RockHopperStandards@1.x.x")
