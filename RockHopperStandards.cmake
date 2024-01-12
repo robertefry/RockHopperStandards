@@ -38,7 +38,7 @@ function(target_rockhopper_standards __target)
   endif()
 
   option(
-    ${__cache_name}_ENABLE_PROTOTYPING_MODE
+    ${ARG_CACHE_NAME}_ENABLE_PROTOTYPING_MODE
     "Enable prototyping mode."
     ${ARG_PROTOTYPE})
 
