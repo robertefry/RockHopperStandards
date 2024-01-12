@@ -40,6 +40,11 @@ function(target_rockhopper_standards __target)
     _rockhopper_cache_name(${__target} ARG_CACHE_NAME)
   endif()
 
+  _target_rockhopper_buildsys_disallow_insource(
+    ${__target}
+    "${ARG_CACHE_NAME}"
+    )
+
   option(
     ${ARG_CACHE_NAME}_ENABLE_PROTOTYPING_MODE
     "Enable prototyping mode."
@@ -74,6 +79,7 @@ function(target_rockhopper_standards __target)
     ${__target}
     "${ARG_CACHE_NAME}"
     )
+
   _target_rockhopper_buildsys_execution(
     ${__target}
     "${ARG_CACHE_NAME}"

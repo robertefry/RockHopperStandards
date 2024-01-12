@@ -96,6 +96,10 @@ For further reference, see the included `example` project.
 
 #### Nice-To-Have Features
 
+- **[In-Source Builds are Disallowed](#disallowed-in-source-builds)**
+
+    In-Source builds are disallowed, to retain the separation of source trees and build environments.
+
 - **[Execution Commands](#execution-commands)**
 
     Commands to (build and) execute any executable targets from the build system.
@@ -234,6 +238,10 @@ Link-Time optimisation is a compiler optimization technique that enhances progra
     ```
 
 </details>
+
+### Disallowed In-Source Builds
+
+Disallowing in-source builds ensures a separation of source trees and build environments. This promotes clean and organized development environments, and reproducible build environments. This practice prevents interference between the build process and source code, enhancing maintainability and ensuring a consistent build environment.
 
 ### Execution Commands
 
