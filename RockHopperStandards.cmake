@@ -44,32 +44,32 @@ function(target_rockhopper_standards __target)
 
   _target_rockhopper_compiler_extensions(
     ${__target}
-    ${ARG_CACHE_NAME}
+    "${ARG_CACHE_NAME}"
     )
   _target_rockhopper_compiler_warnings(
     ${__target}
-    ${ARG_CACHE_NAME}
+    "${ARG_CACHE_NAME}"
     "${ARG_DISABLE_WARNING_PROMOTION}"
     )
   _target_rockhopper_linker_optimisations(
     ${__target}
-    ${ARG_CACHE_NAME}
+    "${ARG_CACHE_NAME}"
     )
   _target_rockhopper_linker_symbol_export(
     ${__target}
-    ${ARG_CACHE_NAME}
+    "${ARG_CACHE_NAME}"
     "${ARG_EXABLE_ALL_SYMBOL_EXPORT}"
     )
   _target_rockhopper_generate_export_header(
     ${__target}
-    ${ARG_CACHE_NAME}
+    "${ARG_CACHE_NAME}"
     "${ARG_EXPORT_BASENAME}"
     "${ARG_EXPORT_HEADER_SOURCE}"
     "${ARG_EXPORT_HEADER_BINARY}"
     )
   _target_rockhopper_analyser_clang_tidy(
     ${__target}
-    ${ARG_CACHE_NAME}
+    "${ARG_CACHE_NAME}"
     )
 
 endfunction()
