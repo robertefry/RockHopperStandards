@@ -45,7 +45,7 @@ function(_target_rockhopper_linker_symbol_export
   option(
     ${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_ALL_SYMBOL_EXPORT
     "Enable the linker export of all library symbols."
-    ${__all_symbol_export})
+    $<BOOL:${__all_symbol_export}>)
 
   if(${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_ALL_SYMBOL_EXPORT)
 
