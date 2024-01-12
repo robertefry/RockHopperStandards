@@ -1,5 +1,5 @@
 
-function(_target_rockhopper_command_execution
+function(_target_rockhopper_buildsys_execution
   __target
   __cache_name
   __disabled)

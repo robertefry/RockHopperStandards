@@ -4,7 +4,7 @@ include(RockHopperStandards_Analysers)
 include(RockHopperStandards_Generation)
 include(RockHopperStandards_Compilers)
 include(RockHopperStandards_Linkers)
-include(RockHopperStandards_Commands)
+include(RockHopperStandards_BuildSystems)
 
 function(target_rockhopper_standards __target)
 
@@ -74,7 +74,7 @@ function(target_rockhopper_standards __target)
     ${__target}
     "${ARG_CACHE_NAME}"
     )
-  _target_rockhopper_command_execution(
+  _target_rockhopper_buildsys_execution(
     ${__target}
     "${ARG_CACHE_NAME}"
     "${ARG_DISABLE_EXECUTION_COMMAND}"
