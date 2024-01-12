@@ -53,6 +53,7 @@ function(_rockhopper_snake_name __in __out_name)
 
 endfunction()
 
+
 function(_rockhopper_cache_name __in __out_name)
 
   _rockhopper_snake_name(${__in} _snake_name)
