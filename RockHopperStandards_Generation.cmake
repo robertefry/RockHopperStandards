@@ -26,15 +26,15 @@ function(_target_rockhopper_generate_export_header
   endif()
 
   set(${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_BASENAME
-    ${__export_basename}
+    "${__export_basename}"
     CACHE STRING "The basename for generated export macros.")
 
   set(${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_HEADER_SOURCE_PATH
-    ${__export_header_source}
+    "${__export_header_source}"
     CACHE STRING "The source-relative filepath to generate a symbol export header file.")
 
   set(${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_HEADER_BINARY_PATH
-    ${__export_header_binary}
+    "${__export_header_binary}"
     CACHE STRING "The binary-relative filepath to generate a symbol export header file.")
 
   if(${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_HEADER_SOURCE_PATH)
