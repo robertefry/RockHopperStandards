@@ -17,21 +17,21 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/..)
 include(RockHopperStandards)
 
 # ---- the library ----
-set(BINARY_NAME "RockHopperStandardsExampleLibrary")
-add_library(${BINARY_NAME} SHARED "")
+set(LIBRARY_NAME "RockHopperStandardsExampleLibrary")
+add_library(${LIBRARY_NAME} SHARED "")
 
-target_rockhopper_standards(${BINARY_NAME}
+target_rockhopper_standards(${LIBRARY_NAME}
   CACHE_NAME "EXAMPLE_LIBRARY"
   EXPORT_HEADER_SOURCE "gen/export.h")
 
-target_include_directories(${BINARY_NAME}
+target_include_directories(${LIBRARY_NAME}
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-target_sources(${BINARY_NAME} PRIVATE src/library.cc)
+target_sources(${LIBRARY_NAME} PRIVATE src/library.cc)
 
 # ---- the executable ----
 set(BINARY_NAME "RockHopperStandardsExampleBinary")
