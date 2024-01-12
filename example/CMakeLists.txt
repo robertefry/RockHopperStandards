@@ -42,10 +42,6 @@ target_rockhopper_standards(${BINARY_NAME}
 
 target_link_libraries(${BINARY_NAME} PRIVATE RockHopperStandardsExampleLibrary)
 
-add_custom_target(run-${BINARY_NAME}
-  COMMAND $<TARGET_FILE:${BINARY_NAME}>
-  DEPENDS ${BINARY_NAME})
-
 target_include_directories(${BINARY_NAME}
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

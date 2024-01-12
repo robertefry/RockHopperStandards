@@ -4,6 +4,7 @@ include(RockHopperStandards_Analysers)
 include(RockHopperStandards_Generation)
 include(RockHopperStandards_Compilers)
 include(RockHopperStandards_Linkers)
+include(RockHopperStandards_Commands)
 
 function(target_rockhopper_standards __target)
 
@@ -16,6 +17,8 @@ function(target_rockhopper_standards __target)
     "DISABLE_WARNING_PROMOTION"
     # (optional) Enable all-symbol export for library targets.
     "ENABLE_ALL_SYMBOL_EXPORT"
+    # (optional) Disable the creation of an execution command.
+    "DISABLE_EXECUTION_COMMAND"
     )
   set(ARGS_SINGLE
     # (optional) A custom name for target-specific cache options.
@@ -70,6 +73,11 @@ function(target_rockhopper_standards __target)
   _target_rockhopper_analyser_clang_tidy(
     ${__target}
     "${ARG_CACHE_NAME}"
+    )
+  _target_rockhopper_command_execution(
+    ${__target}
+    "${ARG_CACHE_NAME}"
+    "${ARG_DISABLE_EXECUTION_COMMAND}"
     )
 
 endfunction()

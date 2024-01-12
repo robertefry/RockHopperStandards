@@ -28,6 +28,8 @@ target_rockhopper_standards(
     PROTOTYPE
     # (optional) A custom name for target-specific cache options.
     CACHE_NAME <the_target_name>
+    # (optional) Disable the creation of an execution command.
+    DISABLE_EXECUTION_COMMAND
     # (optional) Disable promoting compiler warnings to errors.
     DISABLE_WARNING_PROMOTION
     # (optional) Enable export of all symbols for library targets.
@@ -91,6 +93,12 @@ For further reference, see the included `example` project.
 - **[Link-Time Optimisations](#link-time-optimisations)**:
 
     Perform program-wide optimization during the linking phase.
+
+#### Nice-To-Have Features
+
+- **[Execution Commands](#execution-commands)**
+
+    Commands to (build and) execute any executable targets from the build system.
 
 ## Planned Features In Development
 
@@ -223,6 +231,25 @@ Link-Time optimisation is a compiler optimization technique that enhances progra
 - To enable/disable link-time optimisations.
     ```
     ${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_LTO
+    ```
+
+</details>
+
+### Execution Commands
+
+For any executable target given to RockHopper Standards, an additional target is created which allows the user to quickly build and execute the target from the build system.
+
+For example, if we have an executable target called `MyExecutable`, the command to build and execute this target using a Makefile configured build system;
+```
+make run-MyExecutable
+```
+
+<details>
+<summary>Cache Options</summary>
+
+- To enable/disable creation of the execution target.
+    ```
+    ${__cache_name}_DISABLE_EXECUTION_COMMAND
     ```
 
 </details>
