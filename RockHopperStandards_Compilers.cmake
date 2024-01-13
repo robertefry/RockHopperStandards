@@ -14,7 +14,7 @@ function(_target_rockhopper_compiler_extensions
       ${__enabled})
 
     if(${__cache_name}_ENABLE_${LANG}_EXTENSIONS)
-      message(NOTICE "Enabling ${LANG} extensions is not recomended.")
+      _rockhopper_warning("Enabling ${LANG} extensions is not recomended.")
     endif()
 
     target_compile_definitions(${__target} PUBLIC
@@ -38,7 +38,7 @@ function(_target_rockhopper_compiler_warnings
 
   if(NOT ${${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_WARNINGS})
 
-    message(NOTICE "Disabling RockHopper Standards' set of compiler warnings is not recommended.")
+    _rockhopper_warning("Disabling RockHopper Standards' set of compiler warnings is not recommended.")
     return()
 
   endif()
@@ -73,7 +73,7 @@ function(_target_rockhopper_compiler_warnings
 
   elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 
-    message(NOTICE "The MSVC compiler is partially supported by RockHopper Standards")
+    _rockhopper_warning("The MSVC compiler is partially supported by RockHopper Standards")
 
     if(${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_WARNING_PROMOTION)
       target_compile_options(${__target} PUBLIC /WX)
@@ -82,7 +82,7 @@ function(_target_rockhopper_compiler_warnings
     target_compile_options(${__target} PUBLIC /Wall)
 
   else()
-    message(NOTICE "Unsupported compiler ${CMAKE_CXX_COMPILER_ID}\
+    _rockhopper_warning("Unsupported compiler ${CMAKE_CXX_COMPILER_ID}\
       Cannot set RockHopper Standards' set of compiler warnings.")
   endif()
 

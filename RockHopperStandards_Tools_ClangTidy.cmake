@@ -12,7 +12,7 @@ function(_target_rockhopper_use_clang_tidy
 
   if(${__cache_name}_DISABLE_CLANG_TIDY)
 
-    message(WARNING "Using RockHopper Standards without Clang-Tidy is not recommended!")
+    _rockhopper_warning("Using RockHopper Standards without Clang-Tidy is not recommended.")
     return()
 
   endif()
@@ -20,9 +20,9 @@ function(_target_rockhopper_use_clang_tidy
   _rockhopper_find_program_once("clang-tidy" CLANG_TIDY)
 
   if(CLANG_TIDY)
-    message(STATUS "Found Clang-Tidy: ${CLANG_TIDY}")
+    _rockhopper_status("Found Clang-Tidy: ${CLANG_TIDY}")
   else()
-    message(NOTICE "Cannot enable Clang-Tidy, executable not found!")
+    _rockhopper_warning("Cannot enable Clang-Tidy, executable not found.")
     return()
   endif()
 

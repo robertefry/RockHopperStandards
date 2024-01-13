@@ -19,7 +19,7 @@ function(_target_rockhopper_linker_optimisations
     if(_lto_supported)
       set_property(TARGET ${__target} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
     else()
-      message(NOTICE "Cannot enable inter-process link-time optimisiations.")
+      _rockhopper_warning("Cannot enable inter-process link-time optimisiations (unsupported on this platform).")
     endif()
 
   endif()
@@ -36,7 +36,7 @@ function(_target_rockhopper_linker_symbol_export
   if(NOT _target_type MATCHES ".*_LIBRARY")
 
     if(__enable_all_symbol_export)
-      message(FATAL_ERROR "Cannot enable all symbol export for non-library targets.")
+      _rockhopper_fatal("Cannot enable all symbol export for non-library targets.")
     endif()
 
     return()
@@ -50,7 +50,7 @@ function(_target_rockhopper_linker_symbol_export
 
   if(${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_ALL_SYMBOL_EXPORT)
 
-    message(NOTICE "Enabling all symbol export is not recommended.")
+    _rockhopper_warning("Enabling all symbol export is not recommended.")
 
     set_target_properties(${__target} PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 

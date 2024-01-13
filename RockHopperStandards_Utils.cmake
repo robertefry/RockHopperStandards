@@ -1,12 +1,63 @@
 cmake_minimum_required(VERSION 3.25)
 
+
+function(_rockhopper_status __message)
+
+  message(STATUS "${__message}")
+
+endfunction()
+
+
+function(_rockhopper_warning __message)
+
+  if(NOT WIN32)
+    string(ASCII 27 Esc)
+    set(ColorReset    "${Esc}[m")
+    set(ColorWarning  "${Esc}[33m")
+  endif()
+
+  message(NOTICE "${ColorWarning}WARNING: ${__message}${ColorReset}")
+
+endfunction()
+
+
+function(_rockhopper_error __message)
+
+  if(NOT WIN32)
+    string(ASCII 27 Esc)
+    set(ColorReset  "${Esc}[m")
+    set(ColorError  "${Esc}[1;31m")
+  endif()
+
+  message(NOTICE "${ColorError}ERROR: ${__message}${ColorReset}")
+
+endfunction()
+
+
+function(_rockhopper_fatal __message)
+
+  if(NOT WIN32)
+    string(ASCII 27 Esc)
+    set(ColorReset  "${Esc}[m")
+    set(ColorFatal  "${Esc}[1;31m")
+  endif()
+
+  if(__message)
+    message(NOTICE "${ColorFatal}FATAL: ${__message}${ColorReset}")
+  endif()
+
+  message(FATAL_ERROR "${ColorFatal}Quitting configuration.${ColorReset}")
+
+endfunction()
+
+
 macro(_rockhopper_validate_target __target)
 
   # Check if __target is a defined target
   if(NOT __target)
-    message(FATAL_ERROR "Missing the target argument.")
+    _rockhopper_fatal("Missing the target argument.")
   elseif(NOT TARGET ${__target})
-    message(FATAL_ERROR "Argument ${__target} is not a defined target.")
+    _rockhopper_fatal("Argument ${__target} is not a defined target.")
   endif()
 
   # Check if the target is an alias, and get the real target name
@@ -34,10 +85,10 @@ macro(_rockhopper_parse_exact_args
 
   # Check there are no extra or erroneous arguments
   if(${PARSE_PREFIX}_UNPARSED_ARGUMENTS)
-    message(FATAL_ERROR "Bad arguments: ${${PARSE_PREFIX}_UNPARSED_ARGUMENTS}.")
+    _rockhopper_fatal("Bad arguments: ${${PARSE_PREFIX}_UNPARSED_ARGUMENTS}.")
   endif()
   if(${PARSE_PREFIX}_KEYWORDS_MISSING_VALUES)
-    message(FATAL_ERROR "Missing values for: ${${PARSE_PREFIX}_KEYWORDS_MISSING_VALUES}}.")
+    _rockhopper_fatal("Missing values for: ${${PARSE_PREFIX}_KEYWORDS_MISSING_VALUES}}.")
   endif()
 
 endmacro()

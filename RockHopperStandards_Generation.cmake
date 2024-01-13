@@ -10,7 +10,7 @@ function(_target_rockhopper_generate_export_header
   if(NOT _target_type MATCHES ".*_LIBRARY")
 
     if(__export_header_source OR __export_header_binary)
-      message(FATAL_ERROR "Cannot use symbol export generation for non-library targets.")
+      _rockhopper_fatal("Cannot use symbol export generation for non-library targets.")
     endif()
 
     return()
@@ -18,7 +18,7 @@ function(_target_rockhopper_generate_export_header
   endif()
 
   if(__export_header_source AND __export_header_binary)
-    message(FATAL_ERROR "EXPORT_HEADER_SOURCE and EXPORT_HEADER_BINARY cannot be used together.")
+    _rockhopper_fatal("EXPORT_HEADER_SOURCE and EXPORT_HEADER_BINARY cannot be used together.")
   endif()
 
   if(NOT __export_basename)
@@ -39,7 +39,7 @@ function(_target_rockhopper_generate_export_header
 
   if(${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_HEADER_SOURCE_PATH)
 
-    message(STATUS "Generating export header for ${__target}: ${CMAKE_CURRENT_SOURCE_DIR}/${__export_header_source}")
+    _rockhopper_status("Generating export header for ${__target}: ${CMAKE_CURRENT_SOURCE_DIR}/${__export_header_source}")
 
     include(GenerateExportHeader)
     generate_export_header(${__target}
@@ -57,7 +57,7 @@ function(_target_rockhopper_generate_export_header
 
   if(${__cache_name}_ROCKHOPPER_STANDARDS_EXPORT_HEADER_BINARY_PATH)
 
-    message(STATUS "Generating export header for ${__target}: ${CMAKE_CURRENT_BINARY_DIR}/${__export_header_binary}")
+    _rockhopper_status("Generating export header for ${__target}: ${CMAKE_CURRENT_BINARY_DIR}/${__export_header_binary}")
 
     include(GenerateExportHeader)
     generate_export_header(${__target}

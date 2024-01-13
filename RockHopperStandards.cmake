@@ -8,7 +8,13 @@ include(RockHopperStandards_Tools_ClangTidy)
 
 function(target_rockhopper_standards __target)
 
-  message(STATUS "The target ${__target} is using RockHopper Standards.")
+  if(NOT WIN32)
+    string(ASCII 27 Esc)
+    set(ColorReset      "${Esc}[m")
+    set(ColorStandards  "${Esc}[32m")
+  endif()
+
+  _rockhopper_status("${ColorStandards}The target ${__target} is using RockHopper Standards${ColorReset}")
 
   set(ARGS_OPTIONAL
     # (optional) Enable prototyping mode.

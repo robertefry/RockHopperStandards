@@ -35,11 +35,11 @@ function(_target_rockhopper_buildsys_disallow_insource
   get_filename_component(_target_binpath ${_target_bindir} REALPATH)
 
   if(${_target_srcpath} STREQUAL ${_target_binpath})
-    message("################################################################")
-    message("WARNING: In-source builds are explicitly disallowed.")
-    message("Please create a separate build directory and run CMake from there.")
-    message("################################################################")
-    message(FATAL_ERROR "Quitting configuration.")
+    _rockhopper_error("################################################################")
+    _rockhopper_error(" In-source builds are explicitly disallowed.")
+    _rockhopper_error(" Please run CMake from a separate build directory.")
+    _rockhopper_error("################################################################")
+    _rockhopper_fatal()
   endif()
 
 endfunction()
