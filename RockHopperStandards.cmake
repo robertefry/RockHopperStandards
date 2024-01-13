@@ -71,7 +71,7 @@ function(target_rockhopper_standards __target)
   _target_rockhopper_linker_symbol_export(
     ${__target}
     "${ARG_CACHE_NAME}"
-    "${ARG_EXABLE_ALL_SYMBOL_EXPORT}"
+    "${ARG_ENABLE_ALL_SYMBOL_EXPORT}"
     )
   _target_rockhopper_generate_export_header(
     ${__target}
