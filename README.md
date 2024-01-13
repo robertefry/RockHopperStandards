@@ -34,6 +34,9 @@ target_rockhopper_standards(
     DISABLE_EXECUTION_COMMAND
     # (optional) Disable promoting compiler warnings to errors.
     DISABLE_WARNING_PROMOTION
+    # (optional) Disable link-time optimisations.
+    DISABLE_LINKER_OPTIMISATIONS
+
     # (optional) The export macro basename.
     EXPORT_BASENAME "BASENAME"
     # (optional) The source-relative path to generate a symbol export header file.

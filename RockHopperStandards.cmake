@@ -15,6 +15,8 @@ function(target_rockhopper_standards __target)
     "PROTOTYPE"
     # (optional) Disable promoting compiler warnings to errors.
     "DISABLE_WARNING_PROMOTION"
+    # (optional) Disable link-time optimisations.
+    "DISABLE_LINKER_OPTIMISATIONS"
     # (optional) Enable all-symbol export for library targets.
     "ENABLE_ALL_SYMBOL_EXPORT"
     # (optional) Disable the creation of an execution command.
@@ -64,6 +66,7 @@ function(target_rockhopper_standards __target)
   _target_rockhopper_linker_optimisations(
     ${__target}
     "${ARG_CACHE_NAME}"
+    "${ARG_DISABLE_LINKER_OPTIMISATIONS}"
     )
   _target_rockhopper_linker_symbol_export(
     ${__target}

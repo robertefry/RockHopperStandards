@@ -1,12 +1,13 @@
 
 function(_target_rockhopper_linker_optimisations
   __target
-  __cache_name)
+  __cache_name
+  __disabled)
 
   option(
     ${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_LTO
     "Enable inter-process link time optimisations."
-    ON)
+    $<NOT:${__disabled}>)
 
   if(${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_LTO
     AND NOT CMAKE_BUILD_TYPE MATCHES "Debug"
