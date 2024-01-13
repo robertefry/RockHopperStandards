@@ -2,6 +2,7 @@
 function(_target_rockhopper_compiler_extensions
   __target
   __cache_name
+  __enabled
   )
 
   get_property(_project_languages GLOBAL PROPERTY ENABLED_LANGUAGES)
@@ -9,8 +10,8 @@ function(_target_rockhopper_compiler_extensions
 
     option(
       ${__cache_name}_ENABLE_${LANG}_EXTENSIONS
-      "Enable the use of ${LANG} compiler extensions. (Not recomended; may lead to warning clashes)"
-      OFF)
+      "Enable the use of ${LANG} compiler extensions. (Not recommended; may lead to warning clashes)"
+      $<BOOL:${__enabled}>)
 
     if(${__cache_name}_ENABLE_${LANG}_EXTENSIONS)
       message(NOTICE "Enabling ${LANG} extensions is not recomended.")

@@ -21,6 +21,8 @@ function(target_rockhopper_standards __target)
     "DISABLE_LINKER_OPTIMISATIONS"
     # (optional) Disable Clang-Tidy static analysis (not recomended).
     "DISABLE_CLANG_TIDY"
+    # (optional) Enable compiler extensions.
+    "ENABLE_COMPILER_EXTENSIONS"
     # (optional) Enable all-symbol export for library targets.
     "ENABLE_ALL_SYMBOL_EXPORT"
     )
@@ -57,6 +59,7 @@ function(target_rockhopper_standards __target)
   _target_rockhopper_compiler_extensions(
     ${__target}
     "${ARG_CACHE_NAME}"
+    "${ARG_ENABLE_COMPILER_EXTENSIONS}"
     )
   _target_rockhopper_compiler_warnings(
     ${__target}

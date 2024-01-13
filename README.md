@@ -50,6 +50,8 @@ The following **NOT RECOMMENDED** arguments are provided for ease of transition.
 ```cmake
     # (optional) Disable the use of Clang-Tidy
     DISABLE_CLANG_TIDY
+    # (optional) Enable compiler extensions.
+    ENABLE_COMPILER_EXTENSIONS
     # (optional) Enable export of all symbols for library targets.
     ENABLE_ALL_SYMBOL_EXPORT
 ```
