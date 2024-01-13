@@ -56,7 +56,7 @@ function(_target_rockhopper_analyser_clang_tidy
       message(NOTICE "Cannot enable Clang-Tidy, executable not found!")
     endif()
 
-    set(_ROCKHOPPER_STANDARDS_SEARCHED_CLANG_TIDY OFF CACHE BOOL
+    set(_ROCKHOPPER_STANDARDS_SEARCHED_CLANG_TIDY ON CACHE BOOL
       "Flag to indicate whether RockHopper Standards has searched for Clang-Tidy."
       FORCE)
     mark_as_advanced(FORCE _ROCKHOPPER_STANDARDS_SEARCHED_CLANG_TIDY)
