@@ -46,38 +46,26 @@ function(_target_rockhopper_analyser_clang_tidy
   )
   string(JOIN "," _ROCKHOPPER_STANDARDS_CLANG_TIDY_ARGS ${_ROCKHOPPER_STANDARDS_CLANG_TIDY_ARGS})
 
-  if(NOT CLANG_TIDY AND NOT _ROCKHOPPER_STANDARDS_SEARCHED_CLANG_TIDY)
-
-    find_program(CLANG_TIDY NAMES "clang-tidy")
-
-    if(CLANG_TIDY)
-      message(STATUS "Found Clang-Tidy: ${CLANG_TIDY}")
-    else()
-      message(NOTICE "Cannot enable Clang-Tidy, executable not found!")
-    endif()
-
-    set(_ROCKHOPPER_STANDARDS_SEARCHED_CLANG_TIDY ON CACHE BOOL
-      "Flag to indicate whether RockHopper Standards has searched for Clang-Tidy."
-      FORCE)
-    mark_as_advanced(FORCE _ROCKHOPPER_STANDARDS_SEARCHED_CLANG_TIDY)
-
-  endif()
+  _rockhopper_find_program_once("clang-tidy" CLANG_TIDY)
 
   if(CLANG_TIDY)
+    message(STATUS "Found Clang-Tidy: ${CLANG_TIDY}")
+  else()
+    message(NOTICE "Cannot enable Clang-Tidy, executable not found!")
+    return()
+  endif()
 
-    option(
-      ${__cache_name}_ENABLE_CLANG_TIDY
-      "Enable the use of Clang-Tidy static analysis."
-      ON)
+  option(
+    ${__cache_name}_ENABLE_CLANG_TIDY
+    "Enable the use of Clang-Tidy static analysis."
+    ON)
 
-    if(${__cache_name}_ENABLE_CLANG_TIDY)
+  if(${__cache_name}_ENABLE_CLANG_TIDY)
 
-      foreach(LANG "C" "CXX" "OBJC" "OBJCXX")
-        set_target_properties(${__target} PROPERTIES ${LANG}_CLANG_TIDY
-          "${CLANG_TIDY};${_ROCKHOPPER_STANDARDS_CLANG_TIDY_ARGS}")
-      endforeach()
-
-    endif()
+    foreach(LANG "C" "CXX" "OBJC" "OBJCXX")
+      set_target_properties(${__target} PROPERTIES ${LANG}_CLANG_TIDY
+        "${CLANG_TIDY};${_ROCKHOPPER_STANDARDS_CLANG_TIDY_ARGS}")
+    endforeach()
 
   endif()
 

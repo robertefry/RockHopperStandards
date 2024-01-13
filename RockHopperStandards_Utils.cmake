@@ -72,3 +72,23 @@ function(_rockhopper_directory_from_filepath __in __out_name)
   return(PROPAGATE ${__out_name})
 
 endfunction()
+
+
+function(_rockhopper_find_program_once __in_name __out_name)
+
+  _rockhopper_cache_name(${__in_name} _cache_name)
+
+  if(NOT _ROCKHOPPER_STANDARDS_SEARCHED_${_cache_name})
+
+    find_program(${__out_name} ${__in_name} ${ARGN})
+
+    set(_ROCKHOPPER_STANDARDS_SEARCHED_${_cache_name} ON CACHE BOOL
+      "Flag to indicate whether RockHopper Standards has searched for ${__in_name}."
+      FORCE)
+    mark_as_advanced(FORCE _ROCKHOPPER_STANDARDS_SEARCHED_${_cache_name})
+
+  endif()
+
+  return(PROPAGATE ${__out_name})
+
+endfunction()
