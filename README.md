@@ -24,16 +24,16 @@ The `target_rockhopper_standards` function is used to configure a CMake target b
 target_rockhopper_standards(
     # The name of the cmake target to be compliant with RockHopper Standards.
     <the_target>
+
     # (optional) Enable prototyping mode.
     PROTOTYPE
     # (optional) A custom name for target-specific cache options.
     CACHE_NAME <the_target_name>
+
     # (optional) Disable the creation of an execution command.
     DISABLE_EXECUTION_COMMAND
     # (optional) Disable promoting compiler warnings to errors.
     DISABLE_WARNING_PROMOTION
-    # (optional) Enable export of all symbols for library targets.
-    ENABLE_ALL_SYMBOL_EXPORT
     # (optional) The export macro basename.
     EXPORT_BASENAME "BASENAME"
     # (optional) The source-relative path to generate a symbol export header file.
@@ -41,6 +41,14 @@ target_rockhopper_standards(
     # (optional) The binary-relative path to generate a symbol export header file.
     EXPORT_HEADER_BINARY "some/binary/relative/path"
 )
+```
+
+The following **NOT RECOMMENDED** arguments are provided for ease of transition.
+```cmake
+    # (optional) Disable the use of Clang-Tidy
+    DISABLE_CLANG_TIDY
+    # (optional) Enable export of all symbols for library targets.
+    ENABLE_ALL_SYMBOL_EXPORT
 ```
 
 ## Getting Started

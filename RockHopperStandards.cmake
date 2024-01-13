@@ -19,6 +19,8 @@ function(target_rockhopper_standards __target)
     "ENABLE_ALL_SYMBOL_EXPORT"
     # (optional) Disable the creation of an execution command.
     "DISABLE_EXECUTION_COMMAND"
+    # (optional) Disable Clang-Tidy static analysis (not recomended).
+    "DISABLE_CLANG_TIDY"
     )
   set(ARGS_SINGLE
     # (optional) A custom name for target-specific cache options.
@@ -78,6 +80,7 @@ function(target_rockhopper_standards __target)
   _target_rockhopper_analyser_clang_tidy(
     ${__target}
     "${ARG_CACHE_NAME}"
+    "${ARG_DISABLE_CLANG_TIDY}"
     )
 
   _target_rockhopper_buildsys_execution(

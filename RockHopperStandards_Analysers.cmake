@@ -2,7 +2,29 @@
 function(_target_rockhopper_analyser_clang_tidy
   __target
   __cache_name
+  __disabled
   )
+
+  option(
+    ${__cache_name}_ENABLE_CLANG_TIDY
+    "Enable the use of Clang-Tidy static analysis."
+    $<NOT:${__disabled}>)
+
+  if(NOT ${__cache_name}_ENABLE_CLANG_TIDY)
+
+    message(WARNING "Using RockHopper Standards without Clang-Tidy is not recommended!")
+    return()
+
+  endif()
+
+  _rockhopper_find_program_once("clang-tidy" CLANG_TIDY)
+
+  if(CLANG_TIDY)
+    message(STATUS "Found Clang-Tidy: ${CLANG_TIDY}")
+  else()
+    message(NOTICE "Cannot enable Clang-Tidy, executable not found!")
+    return()
+  endif()
 
   # https://clang.llvm.org/extra/clang-tidy/checks/list.html
   #
@@ -46,27 +68,11 @@ function(_target_rockhopper_analyser_clang_tidy
   )
   string(JOIN "," _ROCKHOPPER_STANDARDS_CLANG_TIDY_ARGS ${_ROCKHOPPER_STANDARDS_CLANG_TIDY_ARGS})
 
-  _rockhopper_find_program_once("clang-tidy" CLANG_TIDY)
+  foreach(LANG "C" "CXX" "OBJC" "OBJCXX")
 
-  if(CLANG_TIDY)
-    message(STATUS "Found Clang-Tidy: ${CLANG_TIDY}")
-  else()
-    message(NOTICE "Cannot enable Clang-Tidy, executable not found!")
-    return()
-  endif()
+    set_target_properties(${__target} PROPERTIES ${LANG}_CLANG_TIDY
+      "${CLANG_TIDY};${_ROCKHOPPER_STANDARDS_CLANG_TIDY_ARGS}")
 
-  option(
-    ${__cache_name}_ENABLE_CLANG_TIDY
-    "Enable the use of Clang-Tidy static analysis."
-    ON)
-
-  if(${__cache_name}_ENABLE_CLANG_TIDY)
-
-    foreach(LANG "C" "CXX" "OBJC" "OBJCXX")
-      set_target_properties(${__target} PROPERTIES ${LANG}_CLANG_TIDY
-        "${CLANG_TIDY};${_ROCKHOPPER_STANDARDS_CLANG_TIDY_ARGS}")
-    endforeach()
-
-  endif()
+  endforeach()
 
 endfunction()
