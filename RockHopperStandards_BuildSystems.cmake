@@ -11,7 +11,7 @@ function(_target_rockhopper_buildsys_execution
 
   option(${__cache_name}_DISABLE_EXECUTION_COMMAND
     "Disable creation of a command to run the built binary"
-    $<BOOL:${__disabled}>)
+    ${__disabled})
 
   if(NOT ${__cache_name}_DISABLE_EXECUTION_COMMAND)
 

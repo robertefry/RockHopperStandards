@@ -11,7 +11,7 @@ function(_target_rockhopper_compiler_extensions
     option(
       ${__cache_name}_ENABLE_${LANG}_EXTENSIONS
       "Enable the use of ${LANG} compiler extensions. (Not recommended; may lead to warning clashes)"
-      $<BOOL:${__enabled}>)
+      ${__enabled})
 
     if(${__cache_name}_ENABLE_${LANG}_EXTENSIONS)
       message(NOTICE "Enabling ${LANG} extensions is not recomended.")
@@ -44,14 +44,14 @@ function(_target_rockhopper_compiler_warnings
   endif()
 
   option(
-    ${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_WARNING_PROMOTION
+    ${__cache_name}_DISABLE_ROCKHOPPER_STANDARDS_WARNING_PROMOTION
     "Disable promoting compiler warnings to errors."
-    $<NOT:${__disable_warning_promotion}>)
+    ${__disable_warning_promotion})
 
   if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR
       CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 
-    if(${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_WARNING_PROMOTION)
+    if(NOT ${__cache_name}_DISABLE_ROCKHOPPER_STANDARDS_WARNING_PROMOTION)
       target_compile_options(${__target} PUBLIC -Werror)
     endif()
 

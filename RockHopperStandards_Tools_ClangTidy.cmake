@@ -6,11 +6,11 @@ function(_target_rockhopper_use_clang_tidy
   )
 
   option(
-    ${__cache_name}_ENABLE_CLANG_TIDY
-    "Enable the use of Clang-Tidy static analysis."
-    $<NOT:${__disabled}>)
+    ${__cache_name}_DISABLE_CLANG_TIDY
+    "Disable the use of Clang-Tidy static analysis."
+    ${__disabled})
 
-  if(NOT ${__cache_name}_ENABLE_CLANG_TIDY)
+  if(${__cache_name}_DISABLE_CLANG_TIDY)
 
     message(WARNING "Using RockHopper Standards without Clang-Tidy is not recommended!")
     return()

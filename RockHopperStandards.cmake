@@ -54,7 +54,7 @@ function(target_rockhopper_standards __target)
   option(
     ${ARG_CACHE_NAME}_ENABLE_PROTOTYPING_MODE
     "Enable prototyping mode."
-    $<BOOL:${ARG_PROTOTYPE}>)
+    ${ARG_PROTOTYPE})
 
   _target_rockhopper_compiler_extensions(
     ${__target}
