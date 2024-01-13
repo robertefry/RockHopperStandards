@@ -13,16 +13,16 @@ function(target_rockhopper_standards __target)
   set(ARGS_OPTIONAL
     # (optional) Enable prototyping mode.
     "PROTOTYPE"
+    # (optional) Disable the creation of an execution command.
+    "DISABLE_EXECUTION_COMMAND"
     # (optional) Disable promoting compiler warnings to errors.
     "DISABLE_WARNING_PROMOTION"
     # (optional) Disable link-time optimisations.
     "DISABLE_LINKER_OPTIMISATIONS"
-    # (optional) Enable all-symbol export for library targets.
-    "ENABLE_ALL_SYMBOL_EXPORT"
-    # (optional) Disable the creation of an execution command.
-    "DISABLE_EXECUTION_COMMAND"
     # (optional) Disable Clang-Tidy static analysis (not recomended).
     "DISABLE_CLANG_TIDY"
+    # (optional) Enable all-symbol export for library targets.
+    "ENABLE_ALL_SYMBOL_EXPORT"
     )
   set(ARGS_SINGLE
     # (optional) A custom name for target-specific cache options.
