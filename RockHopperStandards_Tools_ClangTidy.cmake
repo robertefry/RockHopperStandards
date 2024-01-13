@@ -1,5 +1,5 @@
 
-function(_target_rockhopper_analyser_clang_tidy
+function(_target_rockhopper_use_clang_tidy
   __target
   __cache_name
   __disabled

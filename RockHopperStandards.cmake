@@ -1,10 +1,10 @@
 
 include(RockHopperStandards_Utils)
-include(RockHopperStandards_Analysers)
-include(RockHopperStandards_Generation)
+include(RockHopperStandards_BuildSystems)
 include(RockHopperStandards_Compilers)
 include(RockHopperStandards_Linkers)
-include(RockHopperStandards_BuildSystems)
+include(RockHopperStandards_Generation)
+include(RockHopperStandards_Tools_ClangTidy)
 
 function(target_rockhopper_standards __target)
 
@@ -80,16 +80,17 @@ function(target_rockhopper_standards __target)
     "${ARG_EXPORT_HEADER_SOURCE}"
     "${ARG_EXPORT_HEADER_BINARY}"
     )
-  _target_rockhopper_analyser_clang_tidy(
-    ${__target}
-    "${ARG_CACHE_NAME}"
-    "${ARG_DISABLE_CLANG_TIDY}"
-    )
 
   _target_rockhopper_buildsys_execution(
     ${__target}
     "${ARG_CACHE_NAME}"
     "${ARG_DISABLE_EXECUTION_COMMAND}"
+    )
+
+  _target_rockhopper_use_clang_tidy(
+    ${__target}
+    "${ARG_CACHE_NAME}"
+    "${ARG_DISABLE_CLANG_TIDY}"
     )
 
 endfunction()
