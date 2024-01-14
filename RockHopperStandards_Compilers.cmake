@@ -59,6 +59,7 @@ function(_target_rockhopper_compiler_warnings
     target_compile_options(${__target} PUBLIC -Wshadow)
     target_compile_options(${__target} PUBLIC -Wnon-virtual-dtor)
     target_compile_options(${__target} PUBLIC -Woverloaded-virtual)
+    target_compile_options(${__target} PUBLIC -Wno-ignored-optimization-argument)
 
     if(NOT ${__cache_name}_ENABLE_PROTOTYPING_MODE)
       target_compile_options(${__target} PUBLIC -Wunused)
