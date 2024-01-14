@@ -5,6 +5,7 @@ include(RockHopperStandards_Compilers)
 include(RockHopperStandards_Linkers)
 include(RockHopperStandards_Generation)
 include(RockHopperStandards_Tools_ClangTidy)
+include(RockHopperStandards_Tools_Doxygen)
 
 function(target_rockhopper_standards __target)
 
@@ -35,6 +36,10 @@ function(target_rockhopper_standards __target)
   set(ARGS_SINGLE
     # (optional) A custom name for target-specific cache options.
     "CACHE_NAME"
+    # (recommended) The output directory for generated documentation.
+    "DOCUMENT_OUTPUT"
+    # (optional) An unconfigured doxyfile.in file.
+    "DOXYFILE_IN"
     # (optional) The export macro basename.
     "EXPORT_BASENAME"
     # (optional) The source-relative path to generate a symbol export header file.
@@ -43,6 +48,8 @@ function(target_rockhopper_standards __target)
     "EXPORT_HEADER_BINARY"
     )
   set(ARGS_MULTIPLE
+    # (optional) A list of additional sources to generate documentation from.
+    "DOCUMENT_SOURCES"
     )
 
   _rockhopper_validate_target(${__target})
@@ -100,6 +107,13 @@ function(target_rockhopper_standards __target)
     ${__target}
     "${ARG_CACHE_NAME}"
     "${ARG_DISABLE_CLANG_TIDY}"
+    )
+  _target_rockhopper_use_doxygen(
+    ${__target}
+    "${ARG_CACHE_NAME}"
+    "${ARG_DOXYFILE_IN}"
+    "${ARG_DOCUMENT_SOURCES}"
+    "${ARG_DOCUMENT_OUTPUT}"
     )
 
 endfunction()

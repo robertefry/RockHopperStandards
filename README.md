@@ -14,6 +14,10 @@ CMake scripts to enable high-performance and reliability in C++ codebases.
 - [Linker Features](#linker-features)
     - [Symbol Export Control](#symbol-export-control)
     - [Link-Time Optimisations](#link-time-optimisations)
+- [Nice-To-Have Features](#nice-to-have-features)
+    - [Documentation Generation](#documentation-generation)
+    - [In-Source Builds Disallowed](#disallowed-in-source-builds)
+    - [Execution Commands](#execution-commands)
 - [In Development](#features-in-development)
 
 </details>
@@ -43,6 +47,13 @@ target_rockhopper_standards(
     EXPORT_HEADER_SOURCE "some/source/relative/path"
     # (optional) The binary-relative path to generate a symbol export header file.
     EXPORT_HEADER_BINARY "some/binary/relative/path"
+
+    # (recommended) The output directory for generated documentation.
+    DOCUMENT_OUTPUT "path/to/docs"
+    # (optional) List any additional source paths.
+    DOCUMENT_SOURCES "src/file.cpp" "src/directory/" "src/wildcard/*"
+    # (optional) A non-default doxyfile.in file.
+    DOXYFILE_IN "path/to/your/doxyfile.in"
 )
 ```
 
@@ -109,6 +120,10 @@ For further reference, see the included `example` project.
 
 #### Nice-To-Have Features
 
+- **[Documentation Generation](#documentation-generation)**
+
+    Doxygen documentation is automatically generated from all target source files.
+
 - **[In-Source Builds are Disallowed](#disallowed-in-source-builds)**
 
     In-Source builds are disallowed, to retain the separation of source trees and build environments.
@@ -121,7 +136,6 @@ For further reference, see the included `example` project.
 
 - Code Quality
     - CppCheck (yes, as well as Clang-Tidy).
-    - Documentation generation (Doxygen).
     - (?) Code formatting (Clang-Format).
 - Testing
     - Sanitized testing.
@@ -248,6 +262,26 @@ Link-Time optimisation is a compiler optimization technique that enhances progra
 - To enable/disable link-time optimisations.
     ```
     ${__cache_name}_ENABLE_ROCKHOPPER_STANDARDS_LTO
+    ```
+
+</details>
+
+### Documentation Generation
+
+Documentation improves code comprehension, accelerates onboarding for new team members, and enhances code maintainability. Automated documentation ensures consistency, aids in code reviews, and facilitates compliance with regulatory standards. Integrated into continuous integration pipelines, it keeps documentation current with code changes.
+
+RockHopper Standards uses the Doxygen documentation generator, which extracts code structure, comments, and relationships, producing detailed and structured documentation. If the engineer provides a `DOCUMENT_OUTPUT` variable, doxygen is automatically run on all target sources. ***This variable is required to run doxygen***, but only recommended to be compliant with RockHopper Standards.
+
+<details>
+<summary>Cache Options</summary>
+
+- The directory to put generated documentation in.
+    ```
+    ${__cache_name}_ROCKHOPPER_DOCUMENT_DIRECTORY
+    ```
+- To disable documentation generation.
+    ```
+    ${__cache_name}_DISABLE_DOCUMENT_GENERATION
     ```
 
 </details>

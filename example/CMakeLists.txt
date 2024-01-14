@@ -22,7 +22,10 @@ add_library(${LIBRARY_NAME} SHARED "")
 
 target_rockhopper_standards(${LIBRARY_NAME}
   CACHE_NAME "EXAMPLE_LIBRARY"
-  EXPORT_HEADER_SOURCE "gen/export.h")
+  EXPORT_HEADER_SOURCE "gen/export.h"
+  DOCUMENT_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src"
+  DOCUMENT_OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/docs"
+  )
 
 target_include_directories(${LIBRARY_NAME}
   PUBLIC
@@ -38,7 +41,8 @@ set(BINARY_NAME "RockHopperStandardsExampleBinary")
 add_executable(${BINARY_NAME} "")
 
 target_rockhopper_standards(${BINARY_NAME}
-  CACHE_NAME "EXAMPLE_BINARY")
+  CACHE_NAME "EXAMPLE_BINARY"
+  )
 
 target_link_libraries(${BINARY_NAME} PRIVATE RockHopperStandardsExampleLibrary)
 
